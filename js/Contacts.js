@@ -1,5 +1,8 @@
 const urlBase = 'http://209.38.140.72/backend'; 
-const contactFile = "placeholder.html";
+const contactFile = "contacts.html";
+
+
+let userId = 0;
 
 function refreshValues()
 {
@@ -25,32 +28,59 @@ document.getElementById("ContactPopup").style.visibility = "visible";
 
 function SubmitContact()
 {
+
 let ContNameF = document.getElementById("PopNameF").value;
 let ContNameL = document.getElementById("PopNameL").value;
 let ContEmail = document.getElementById("PopEmail").value;
 let ContPhone = document.getElementById("PopPhone").value;
-if(contactEdited){
-    const Contact = contactEdited;
- Contact.ContNameF = ContNameF;
- Contact.ContNameL = ContNameL;
- Contact.ContEmail = ContEmail;
- Contact.ContPhone = ContPhone;
-contactEditedname.value = Contact.ContNameF + " " + Contact.ContNameL;
-contactEdited = null;
-contactEditedname = null;
+
+
+const NewContact  = {
+    userId,
+    first_name: ContNameF,
+    last_name: ContNameL,
+    email: ContEmail,
+    phone: ContPhone
+};
+
+let jsonPayload = JSON.stringify(NewContact);
+let url = urlBase + '/AddContact.php';
+let xhr = new XMLHttpRequest();
+
+xhr.open("POST", url, true);
+xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if(this.readyState == 4 && this.status == 200)
+            {
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                if (jsonObject.error !== "")
+                {
+                    document.getElementById("CreateError").innerHTML = jsonObject.error;
+                    return;
+                } 
+
+
+                CreateContact();
+                document.getElementById("ContactPopup").style.visibility = "hidden";
+        
+            }
+        };
+
+        xhr.send(jsonPayload);
+    }
+
+    catch(err)
+    {
+        document.getElementById("CreateError").innerHTML = err.message;
+    }
+
 }
-else{
-const Contact = {
-    ContID: Date.now(), //Gets the current time from 1970 in miliseconds, Good for unique ID's.
-    ContNameF,
-    ContNameL,
-    ContEmail,
-    ContPhone
-    };
-    CreateContact(Contact);
-}
-document.getElementById("ContactPopup").style.visibility = "hidden";
-}
+
 
 function CreateContact(Contact)
 {
@@ -69,18 +99,16 @@ ContactTab.appendChild(DeleteBut);
 document.getElementById("SearchList").appendChild(ContactTab);
 }
 
-function EditCont(Contact, Contactname)
-{
-contactEdited = Contact;
-contactEditedname = Contactname;
-document.getElementById("PopNameF").value = Contact.ContNameF;
-document.getElementById("PopNameL").value = Contact.ContNameL;
-document.getElementById("PopEmail").value = Contact.ContEmail;
-document.getElementById("PopPhone").value = Contact.ContPhone;
-document.getElementById("ContactPopup").style.visibility = "visible";
-}
 
-function DeleteCont(ContactTab)
+function SearchContacts()
 {
- ContactTab.remove();
+    const SearchContact = document.getElementById("SearchCon").value;
+    const ContactsContainer = document.getElementById("SearchList");
+    const payload = {
+        userId,
+        search: SearchContact
+    };
+
+   
+    
 }
