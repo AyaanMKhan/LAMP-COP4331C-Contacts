@@ -60,7 +60,7 @@ try
 
                 if (jsonObject.error !== "")
                 {
-                    document.getElementById("CreateError").innerHTML = jsonObject.error;
+                    document.getElementById("ErrorText").innerHTML = jsonObject.error;
                     return;
                 } 
 
@@ -76,7 +76,7 @@ try
 
     catch(err)
     {
-        document.getElementById("CreateError").innerHTML = err.message;
+        document.getElementById("ErrorText").innerHTML = err.message;
     }
 
 }
@@ -88,27 +88,63 @@ const ContactTab = document.createElement("div");
 const Contactname = document.createElement("input");
 const EditBut = document.createElement("button");
 const DeleteBut = document.createElement("button");
+
+ContactTabID = Date.now();
 ContactTab.className = "ContactTab";
 Contactname.readOnly = true;
 Contactname.value = Contact.ContNameF + " " + Contact.ContNameL;
+
+
 EditBut.onclick = () => EditCont(Contact , Contactname);
-DeleteBut.onclick = () => DeleteCont(ContactTab);
+DeleteBut.onclick = () => DeleteCont(ContactTab,ContactTabID);
 ContactTab.appendChild(Contactname);
 ContactTab.appendChild(EditBut);
 ContactTab.appendChild(DeleteBut);
 document.getElementById("SearchList").appendChild(ContactTab);
 }
 
+DeleteCont(ContactTab,ContactTabID)
+{
+    const Del = {
+        userId,
+        contactId:ContactTabID
+    };
+    let jsonPayload = JSON.stringify(Del);
+let url = urlBase + '/DeleteContact.php';
+let xhr = new XMLHttpRequest();
+
+xhr.open("POST", url, true);
+xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if(this.readyState == 4 && this.status == 200)
+            {
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                if (jsonObject.error !== "")
+                {
+                    document.getElementById("ErrorText").innerHTML = jsonObject.error;
+                    return;
+                } 
+
+                ContactTab.remove();
+        
+            }
+        };
+
+        xhr.send(jsonPayload);
+    }
+
+    catch(err)
+    {
+        document.getElementById("ErrorText").innerHTML = err.message;
+    }
+}
 
 function SearchContacts()
 {
-    const SearchContact = document.getElementById("SearchCon").value;
-    const ContactsContainer = document.getElementById("SearchList");
-    const payload = {
-        userId,
-        search: SearchContact
-    };
-
-   
-    
+  
 }
