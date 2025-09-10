@@ -37,6 +37,18 @@ background-image: url("watter_effect.jpg");
 
 }
 
+#ContactPopupEdit
+{
+    visibility: hidden;
+    display: flex;
+    align-items: center;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+
+}
+
+
 #ContactsHeader
 {
     padding: 10px;

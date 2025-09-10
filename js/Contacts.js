@@ -4,6 +4,8 @@ const contactFile = "contacts.html";
 
 let userId = 0;
 
+let ContactEdited = null;
+
 function refreshValues()
 {
     userId = 0;
@@ -29,10 +31,13 @@ document.getElementById("ContactPopup").style.visibility = "visible";
 function SubmitContact()
 {
 
+
 let ContNameF = document.getElementById("PopNameF").value;
 let ContNameL = document.getElementById("PopNameL").value;
 let ContEmail = document.getElementById("PopEmail").value;
 let ContPhone = document.getElementById("PopPhone").value;
+
+
 
 
 const NewContact  = {
@@ -65,7 +70,7 @@ try
                 } 
 
 
-                CreateContact();
+                CreateContact(NewContact);
                 document.getElementById("ContactPopup").style.visibility = "hidden";
         
             }
@@ -89,13 +94,15 @@ const Contactname = document.createElement("input");
 const EditBut = document.createElement("button");
 const DeleteBut = document.createElement("button");
 
+
 ContactTabID = Date.now();
+ContactTab.id = ContactTabID;
 ContactTab.className = "ContactTab";
 Contactname.readOnly = true;
 Contactname.value = Contact.ContNameF + " " + Contact.ContNameL;
 
 
-EditBut.onclick = () => EditCont(Contact , Contactname);
+EditBut.onclick = () => Edit(ContactTabID, Contact);
 DeleteBut.onclick = () => DeleteCont(ContactTab,ContactTabID);
 ContactTab.appendChild(Contactname);
 ContactTab.appendChild(EditBut);
@@ -109,6 +116,7 @@ DeleteCont(ContactTab,ContactTabID)
         userId,
         contactId:ContactTabID
     };
+
     let jsonPayload = JSON.stringify(Del);
 let url = urlBase + '/DeleteContact.php';
 let xhr = new XMLHttpRequest();
@@ -144,7 +152,69 @@ try
     }
 }
 
-function SearchContacts()
+EditCont()
 {
-  
+
+    const EditContact  = {
+    userId,
+    contactId: ContactEdited,
+    first_name: document.getElementById("EPopNameF").value,
+    last_name: document.getElementById("EPopNameL").value,
+    email: document.getElementById("EPopEmail").value,
+    phone: document.getElementById("EPopPhone").value,
+};
+
+let jsonPayload = JSON.stringify(EditContact);
+let url = urlBase + '/UpdateContact.php';
+let xhr = new XMLHttpRequest();
+
+xhr.open("POST", url, true);
+xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if(this.readyState == 4 && this.status == 200)
+            {
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                if (jsonObject.error !== "")
+                {
+                    document.getElementById("ErrorText").innerHTML = jsonObject.error;
+                    return;
+                } 
+
+                document.getElementById("ContactPopupEdit").style.visibility = "hidden";
+                let temp = document.getElementById(ContactEdited);
+                let oldname = temp.querySelector("input");
+                let F = document.getElementById("EPopNameF").value;
+                let L = document.getElementById("EPopNameL").value;
+                oldname.value = F + " " + L;
+                ContactEdited = null;
+        
+            }
+        };
+
+        xhr.send(jsonPayload);
+    }
+
+    catch(err)
+    {
+        document.getElementById("ErrorText").innerHTML = err.message;
+    }
 }
+
+Edit(ContactTabID,Contact)
+{
+ContactEdited = ContactTabID;
+
+ document.getElementById("ContactPopupEdit").style.visibility = "visable";
+ document.getElementById("EPopNameF").value = Contact.ContNameF;
+ document.getElementById("EPopNameL").value = Contact.ContNameL;
+ document.getElementById("EPopEmail").value = Contact.ContEmail;
+ document.getElementById("EPopPhone").value = Contact.ContPhone;
+}
+
+
+
