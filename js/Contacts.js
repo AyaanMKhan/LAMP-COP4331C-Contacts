@@ -112,7 +112,7 @@ try
 
 
                 CreateContact(NewContact);
-                document.getElementById("ContactPopup").style.visibility = "hidden";
+                document.getElementById("ContactPopupMake").style.visibility = "hidden";
         
             }
         };
