@@ -1,14 +1,15 @@
 
-/*index.html section*/
+/*  Created by Jean Deguzman for POOSD Fall 2025, Group 29
+    css file for index.html and register.html               */
 
-#loginBody
+#body
 {
     background-image: url("watter_effect.jpg");
     background-color: rgba(255, 255, 255, 0.475);
     background-blend-mode: lighten;
 }
 
-#loginFields
+#fieldDiv
 {
     background-image: linear-gradient(to bottom right, rgba(186, 222, 232, 1) 0%, rgba(15, 155, 186, 1) 100%);
     border-style: ridge;
@@ -18,7 +19,7 @@
     margin: 5% 15% 5% 15%;
 }
 
-#loginHead
+#head
 {
     color: black;
     font-family: "Audiowide", sans-serif;
@@ -26,7 +27,7 @@
     text-align: center;
 }
 
-#loginInstruct
+#instruct
 {
     color: black;
     font-family: Arial, sans-serif;
@@ -48,7 +49,35 @@
     width: 80%;
 }
 
-#loginButton
+#firstName
+{
+    border-radius: 7px;
+    float: left;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    height: 7%;
+    margin-bottom: 15px;
+    margin-left: 10%;
+    text-align: center;
+    width: 35%;
+}
+
+#lastName
+{
+    border-radius: 7px;
+    float: right;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    height: 7%;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    margin-right: 10%;
+    text-align: center;
+    width: 35%;
+}
+
+
+.button
 {
     background-color: rgb(239, 132, 10);
     border-color: rgb(52, 100, 109);
@@ -60,9 +89,14 @@
     font-size: 14pt;
     font-weight: bold;
     height: 9%;
-    margin-left: 45%;
+    margin-left: 43%;
     margin-top: 10px;
-    width: 10%;
+    width: 15%;
+}
+
+#loginButton
+{
+    margin-left: 43%;
 }
 
 #attribution
@@ -72,18 +106,27 @@
     margin-left: 5%;
 }
 
-#regText, #regLink
+#regText, #loginText
 {
     font-family: Arial, sans-serif;
     font-size: 15pt;
     font-weight: bold;
     height: 7%;
-    margin-right: 5%;
-    margin-top: 40px;
+    margin-right: 10%;
+    margin-top: 15px;
     text-align: right;
 }
 
-#loginErr
+#regLink, #loginLink
+{
+    font-family: Arial, sans-serif;
+    font-size: 15pt;
+    font-weight: bold;
+    height: 7%;
+    text-align: right;
+}
+
+#loginErr, #emptyField, #invalidEmail
 {
     color: rgb(112, 6, 6);
     display: block;
@@ -100,19 +143,20 @@
     width: 20px;
 }
 
-.field:focus, #loginButton:focus, #regLink:focus, #attrLink:focus
+.field:focus, .button:focus, #regLink:focus, #attrLink:focus,
+#firstName:focus, #lastName:focus, #loginText:focus, #loginLink:focus 
 {
     outline: none;
     border: 5px solid rgb(172, 92, 0);
 }   
 
-.field:hover, #loginButton:hover
+.field:hover, .button:hover, #firstName:hover, #lastName:hover
 {
     outline: none;
-    border: 3px solid rgb(236, 221, 0);
+    border: 5px solid rgb(236, 221, 0);
 }
 
-#regLink:hover, #attrLink:hover
+#regLink:hover, #attrLink:hover, #loginLink:hover
 {
     background-color:  rgba(236, 220, 0, 0.71);
 }
