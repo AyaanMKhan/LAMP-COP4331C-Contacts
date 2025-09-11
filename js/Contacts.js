@@ -24,7 +24,7 @@ function logout()
 
 function CreateContactPop()
 {
-document.getElementById("ContactPopup").style.visibility = "visible";
+document.getElementById("ContactPopupMake").style.visibility = "visible";
 }
 
 function SubmitContact()
