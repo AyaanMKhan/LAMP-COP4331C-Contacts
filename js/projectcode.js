@@ -2,13 +2,19 @@
 const urlBase = 'http://209.38.140.72/backend'; 
 const contactFile = "placeholder.html";
 
+const emailRegEx = /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm
+
 let userId = 0;
 let fName = '';
 let lName = '';
+let regCheck = 0;
+
+//Warning img for errors
 let warningImg = document.createElement('img');
 warningImg.src = 'css/warning-sign-30915_1280.png';
 warningImg.id = 'warningImg';
 
+//Sets stored values to nothing
 function refreshValues()
 {
     userId = 0;
@@ -48,7 +54,8 @@ function login()
             {
                 let jsonObject = JSON.parse(xhr.responseText);
                 let error = jsonObject.error;
-
+                
+                //If returnWithError was called, print out error
                 if(error !== "")
                 {
                     document.getElementById("loginErr").innerHTML = error;
@@ -56,10 +63,11 @@ function login()
                     return;
                 }
 
-                userId = jsonObject.Id;
-                fName = jsonObject.first_name;
-                lName = jsonObject.last_name;
+                userId = jsonObject.id;
+                fName = jsonObject.firstName;
+                lName = jsonObject.lastName;
 
+                //Save data in cookie so information can be recalled
                 cookieSave();
 
                 window.location.href = contactFile;
@@ -83,23 +91,36 @@ function logout()
 	window.location.href = "index.html";
 }
 
-function parseEmail(email)
+function emptyCheck(id)
 {
-   let emailSplit = parseEmail.split("@");
-
-    //Emails cannot have more than 2 @
-    if(emaiLSplit.length == 2)
+    //entry = document.getElementById("id");
+    if (id.value == undefined || id.value == "")
     {
-        let localPart = emailSplit[0];
-        let domain = emailSplit[1];
+        id.style.background = "rgba(250, 143, 143, 1)";
+        document.getElementById("emptyField").innerHTML = "Do not leave any fields empty.";
+        return false;
+    }
+    else 
+    {
+        id.style.background = "rgba(116, 255, 111, 1)";
+        document.getElementById("emptyField").innerHTML = "";
+        return true;
+    }
+}
 
-        //If email domain is an IP Address...
-        if(domain.charAt(0) == '[' && domain.charAt(domain.length - 1) == ']')
-        {
-        }
+function emailCheck(email)
+{
+    let login = email.value;
+
+    if (login.match(emailRegEx) == login)
+    {
+        email.style.background = "rgba(116, 255, 111, 1)";
+        document.getElementById("invalidEmail").innerHTML = "";
+        return;
     }
 
-    return false;
+    email.style.background = "rgba(250, 143, 143, 1)";
+    document.getElementById("invalidEmail").innerHTML = "The email you entered is invalid. Please enter a valid email.";
 }
 
 function register()
@@ -109,16 +130,21 @@ function register()
     lName = document.getElementById("lastName").value;
     let login = document.getElementById("regEmail").value;
     let password = document.getElementById("regPassword").value;
+
+    if(document.getElementById("invalidEmail").innerText != "" || !emptyCheck(document.getElementById("firstName")) 
+        || !emptyCheck(document.getElementById("lastName")) || !emptyCheck(document.getElementById("regEmail")) 
+        || !emptyCheck(document.getElementById("regPassword")))
+    {
+        return;
+    }
     //let hash = md5(password);
     document.getElementById("regErr").innerHTML = "";
 
     let temp = {login:login, password:password, first_name:fName, last_name:lName};
     let jsonPayload = JSON.stringify(temp);
 
-    let url = urlBase + '/JEANRegister.php';
-
+    let url = urlBase + '/Register.php';
     let xhr = new XMLHttpRequest();
-
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
@@ -133,13 +159,13 @@ function register()
                 if (jsonObject.error !== "")
                 {
                     document.getElementById("regErr").innerHTML = jsonObject.error;
+                    document.getElementById("regErr").appendChild(warningImg);
                     return;
                 } 
 
-                userId = jsonObject.Id;
-
+                userId = jsonObject.id;
+                fName = 
                 cookieSave();
-
                 window.location.href = contactFile;
             }
         };
