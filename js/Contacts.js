@@ -140,7 +140,7 @@ ContactTabID = Date.now();
 ContactTab.id = ContactTabID;
 ContactTab.className = "ContactTab";
 Contactname.readOnly = true;
-Contactname.value = Contact.ContNameF + " " + Contact.ContNameL;
+Contactname.value = Contact.firstName + " " + Contact.lastName;
 
 
 EditBut.onclick = () => Edit(ContactTabID, Contact);
