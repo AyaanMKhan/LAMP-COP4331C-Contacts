@@ -2,8 +2,7 @@ const urlBase = 'http://209.38.140.72/backend';
 const contactFile = "contacts.html";
 
 
-let userId = 0;
-
+let userId = jsonObject.id;
 let ContactEdited = null;
 
 function refreshValues()
@@ -216,5 +215,49 @@ ContactEdited = ContactTabID;
  document.getElementById("EPopPhone").value = Contact.ContPhone;
 }
 
+SearchContacts()
+{
+
+    let Temp = document.getElementById("SearchCon").value;
+    const SearchData = {
+        userId,
+        search: Temp
+    };
+
+let jsonPayload = JSON.stringify(SearchData);
+let url = urlBase + '/SearchContact.php';
+let xhr = new XMLHttpRequest();
+
+xhr.open("POST", url, true);
+xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if(this.readyState == 4 && this.status == 200)
+            {
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                if (jsonObject.error !== "")
+                {
+                    document.getElementById("ErrorText").innerHTML = jsonObject.error;
+                    return;
+                } 
+
+                
+
+            }
+        };
+
+        xhr.send(jsonPayload);
+    }
+
+    catch(err)
+    {
+        document.getElementById("ErrorText").innerHTML = err.message;
+    }
+
+}
 
 
