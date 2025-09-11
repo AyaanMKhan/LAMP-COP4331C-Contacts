@@ -83,8 +83,8 @@ let ContPhone = document.getElementById("PopPhone").value;
 
 const NewContact  = {
     userId,
-    first_name: ContNameF,
-    last_name: ContNameL,
+    firstname: ContNameF,
+    lastname: ContNameL,
     email: ContEmail,
     phone: ContPhone
 };
