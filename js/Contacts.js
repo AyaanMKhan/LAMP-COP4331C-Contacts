@@ -199,8 +199,8 @@ function EditCont()
     const EditContact  = {
     userId,
     contactId: ContactEdited,
-    first_name: document.getElementById("EPopNameF").value,
-    last_name: document.getElementById("EPopNameL").value,
+    firstName: document.getElementById("EPopNameF").value,
+    lastName: document.getElementById("EPopNameL").value,
     email: document.getElementById("EPopEmail").value,
     phone: document.getElementById("EPopPhone").value,
 };
