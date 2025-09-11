@@ -9,15 +9,15 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     </head>
 
-    <body id = "loginBody">
+    <body id = "body">
 
-        <div id = "loginFields">
-            <h1 id = "loginHead">Login</h1>
-            <h2 id="loginInstruct">Please enter your login credentials.</h2>
+        <div id = "fieldDiv">
+            <h1 id = "head">Login</h1>
+            <h2 id="instruct">Please enter your login credentials.</h2>
             <input type="text" id="loginEmail" class="field" placeholder="Email">
             <input type="password" id="loginPassword" class="field" placeholder ="Password">
-            <button type="button" id="loginButton" onclick="login();">Sign In</button>
-            <p id="regText">New User? <a href="register.html" id ="regLink">Create an account!</p></a>
+            <button type="button" id ="loginButton" class="button" onclick="login();">Sign In</button>
+            <p id="regText">New User?<br><a href="register.html" id ="regLink">Create an account!</p></a>
             <span id="loginErr" tabindex="-1"></span> <br>
             <p id="attribution">Background Attribution: <a href="https://www.vecteezy.com/free-vector/water" id ="attrLink">Water Vectors by Vecteezy</a></p>
         </div>
