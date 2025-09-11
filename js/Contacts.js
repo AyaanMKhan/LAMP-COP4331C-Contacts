@@ -250,11 +250,11 @@ function Edit(ContactTabID,Contact)
 {
 ContactEdited = ContactTabID;
 
- document.getElementById("ContactPopupEdit").style.visibility = "visable";
- document.getElementById("EPopNameF").value = Contact.ContNameF;
- document.getElementById("EPopNameL").value = Contact.ContNameL;
- document.getElementById("EPopEmail").value = Contact.ContEmail;
- document.getElementById("EPopPhone").value = Contact.ContPhone;
+ document.getElementById("ContactPopupEdit").style.visibility = "visible";
+ document.getElementById("EPopNameF").value = Contact.firstName;
+ document.getElementById("EPopNameL").value = Contact.lastName;
+ document.getElementById("EPopEmail").value = Contact.email;
+ document.getElementById("EPopPhone").value = Contact.phone;
 }
 
 function SearchContacts()
