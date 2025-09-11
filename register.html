@@ -7,21 +7,25 @@
         <!-- Fix/implement files and related urls as needed...-->
         <script type ="text/javascript" src="js/projectcode.js"></script>
         <link href="css/loginRegStyles.css" rel ="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     </head>
 
-    <body>
-        <h2 id = "registerHead">Register</h2>
+    <body id = "body">
 
-        <div id = "registerFields">
-            <input type="text" id="firstName" placeholder="First Name">
-            <input type="text" id="lastName" placeholder="Last Name"> <br>
-            <input type="text" id="regEmail" placeholder="Email"> <br>
-            <input type="text" id="regPassword" placeholder ="Password"> <br>
-            <button type="button" id="loginButton" onclick="register();">Register</button>
-            <span id="regErr"></span>
+        <div id = "fieldDiv">
+            <h1 id = "head">Register</h1>
+            <h2 id="instruct">Please fill out all fields below.</h2>
+            <input type="text" id="firstName" placeholder="First Name" onblur="emptyCheck(firstName);">
+            <input type="text" id="lastName" placeholder="Last Name" onblur="emptyCheck(lastName)"> <br>
+            <input type="text" id="regEmail" class ="field" placeholder="Email" onblur="emailCheck(regEmail);"> <br>
+            <input type="password" id="regPassword" class = "field" placeholder ="Password" onblur="emptyCheck(regPassword)"> <br>
+            <button type="button" id = "regButton" class="button" onclick="register();">Register</button>
+            <p id ="loginText">Returning User? <br><a href="index.html" id = "loginLink">Sign in!</a></p> 
+            <span id="emptyField" tabindex="-1"></span><br>
+            <span id="invalidEmail" tabindex="-1"></span><br>
+            <span id="regErr" tabindex="-1"></span><br>
+            <p id="attribution">Background Attribution: <a href="https://www.vecteezy.com/free-vector/water" id ="attrLink">Water Vectors by Vecteezy</a></p>
         </div>
-
-        <br><p>Returning User? <a href="index.html">Sign in here!</p> 
 
     </body>
 
