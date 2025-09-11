@@ -1,15 +1,57 @@
 const urlBase = 'http://209.38.140.72/backend'; 
 const contactFile = "contacts.html";
 
+let userId = 0;
+let fName = '';
+let lName = '';
 
-let userId = jsonObject.id;
 let ContactEdited = null;
 
+//Also from Jean
 function refreshValues()
 {
     userId = 0;
     fName = '';
     lName = '';
+}
+
+//Jeans readCookie code to grab UserID for my functions
+function readCookie()
+{
+	userId = -1;
+	let data = document.cookie;
+	let splits = data.split(",");
+
+	for(var i = 0; i < splits.length; i++) 
+	{
+		let thisOne = splits[i].trim();
+		let tokens = thisOne.split("=");
+
+		if( tokens[0] == "fName" )
+		{
+			firstName = tokens[1];
+		}
+
+		else if( tokens[0] == "lName" )
+		{
+			lastName = tokens[1];
+		}
+
+		else if( tokens[0] == "userId" )
+		{
+			userId = parseInt( tokens[1].trim() );
+		}
+	}
+	
+	if( userId < 0 )
+	{
+		window.location.href = "index.html";
+	}
+
+	else
+	{
+        document.getElementById("fullName").innerHTML = firstName + " " + lastName;
+	}
 }
 
 
