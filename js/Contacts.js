@@ -151,7 +151,7 @@ ContactTab.appendChild(DeleteBut);
 document.getElementById("SearchList").appendChild(ContactTab);
 }
 
-DeleteCont(ContactTab,ContactTabID)
+function DeleteCont(ContactTab,ContactTabID)
 {
     const Del = {
         userId,
@@ -193,7 +193,7 @@ try
     }
 }
 
-EditCont()
+function EditCont()
 {
 
     const EditContact  = {
@@ -246,7 +246,7 @@ try
     }
 }
 
-Edit(ContactTabID,Contact)
+function Edit(ContactTabID,Contact)
 {
 ContactEdited = ContactTabID;
 
@@ -257,7 +257,7 @@ ContactEdited = ContactTabID;
  document.getElementById("EPopPhone").value = Contact.ContPhone;
 }
 
-SearchContacts()
+function SearchContacts()
 {
 
     let Temp = document.getElementById("SearchCon").value;
