@@ -13,12 +13,16 @@
 
         <div id = "fieldDiv">
             <h1 id = "head">Login</h1>
-            <h2 id="instruct">Please enter your login credentials.</h2>
-            <input type="text" id="loginEmail" class="field" placeholder="Email">
-            <input type="password" id="loginPassword" class="field" placeholder ="Password">
+            <h2 id="instruct">Please enter your login credentials.</h2><br>
+            <span id="loginErr" class = "error" tabindex="-1"></span> <br>
+
+            <label for ="loginEmail" class="fieldLabel">Email</label>
+            <input type="text" id="loginEmail" class="field">
+            <label for="loginPassword" class="fieldLabel">Password</label>
+            <input type="password" id="loginPassword" class="field">
             <button type="button" id ="loginButton" class="button" onclick="login();">Sign In</button>
-            <p id="regText">New User?<br><a href="register.html" id ="regLink">Create an account!</p></a>
-            <span id="loginErr" tabindex="-1"></span> <br>
+
+            <p id="regText">New User?<br><a href="register.html" id ="regLink">Create an account!</a></p><br>
             <p id="attribution">Background Attribution: <a href="https://www.vecteezy.com/free-vector/water" id ="attrLink">Water Vectors by Vecteezy</a></p>
         </div>
     </body>
