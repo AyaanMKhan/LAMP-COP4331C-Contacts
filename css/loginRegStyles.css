@@ -40,42 +40,25 @@
 {
     border-radius: 7px;
     font-family: Arial, sans-serif;
-    font-size: 25px;
+    font-size: 23px;
     height: 7%;
     margin-bottom: 15px;
     margin-left: 10%;
     margin-right: 10%;
-    text-align: center;
-    width: 80%;
+    text-align: left;
+    width: 70%;
 }
 
-#firstName
+#firstName, #lastName
 {
     border-radius: 7px;
-    float: left;
     font-family: Arial, sans-serif;
     font-size: 25px;
     height: 7%;
     margin-bottom: 15px;
     margin-left: 10%;
-    text-align: center;
     width: 35%;
 }
-
-#lastName
-{
-    border-radius: 7px;
-    float: right;
-    font-family: Arial, sans-serif;
-    font-size: 25px;
-    height: 7%;
-    margin-bottom: 15px;
-    margin-left: 15px;
-    margin-right: 10%;
-    text-align: center;
-    width: 35%;
-}
-
 
 .button
 {
@@ -97,13 +80,13 @@
 #loginButton
 {
     margin-left: 43%;
+    margin-bottom: 10px;
 }
 
 #attribution
 {
     font-family: Arial, sans-serif;
     font-size: 10pt;
-    margin-left: 5%;
 }
 
 #regText, #loginText
@@ -113,7 +96,7 @@
     font-weight: bold;
     height: 7%;
     margin-right: 10%;
-    margin-top: 15px;
+    margin-top: 28px;
     text-align: right;
 }
 
@@ -126,10 +109,10 @@
     text-align: right;
 }
 
-#loginErr, #emptyField, #invalidEmail
+.error
 {
-    color: rgb(112, 6, 6);
     display: block;
+    color: rgb(112, 6, 6);
     font-family: Arial, sans-serif;
     font-weight: bold;
     font-size: 15pt;
@@ -138,9 +121,18 @@
 
 #warningImg
 {
-    margin-left: 10px;
     height: 20px;
     width: 20px;
+}
+
+.fieldLabel
+{
+    display: block;
+    font-family: Arial, sans-serif;
+    font-size: 15pt;
+    font-weight: bold;
+    margin-left: 10%;
+    width: 35%;
 }
 
 .field:focus, .button:focus, #regLink:focus, #attrLink:focus,
