@@ -1,13 +1,12 @@
 //Change this as necessary to reflect new domain/file layout...
 const urlBase = 'http://209.38.140.72/backend'; 
-const contactFile = "placeholder.html";
+const contactFile = "contacts.html";
 
 const emailRegEx = /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm
 
 let userId = 0;
 let fName = '';
 let lName = '';
-let regCheck = 0;
 
 //Warning img for errors
 let warningImg = document.createElement('img');
@@ -91,20 +90,40 @@ function logout()
 	window.location.href = "index.html";
 }
 
+function setInvalid(id)
+{
+    id.style.background = "rgba(252, 180, 180, 1)";
+    id.style.backgroundImage = "url('css/warning-sign-30915_1280.png')";
+    id.style.backgroundSize = "contain";
+    id.style.backgroundRepeat = "no-repeat";
+    id.style.backgroundPosition = "right";
+    id.style.backgroundBlendMode = "lighten";
+}
+
 function emptyCheck(id)
 {
-    //entry = document.getElementById("id");
     if (id.value == undefined || id.value == "")
     {
-        id.style.background = "rgba(250, 143, 143, 1)";
+        setInvalid(id);
+        id.dataset.valid = "0";
         document.getElementById("emptyField").innerHTML = "Do not leave any fields empty.";
+        document.getElementById("emptyField").appendChild(warningImg);
         return false;
     }
     else 
     {
-        id.style.background = "rgba(116, 255, 111, 1)";
-        document.getElementById("emptyField").innerHTML = "";
+        id.style.background = "rgba(150, 240, 146, 1)";
+        id.dataset.valid = "1";
         return true;
+    }
+}
+
+function clearError()
+{
+    if(document.getElementById("firstName").dataset.valid == "1" && document.getElementById("lastName").dataset.valid == "1"
+    && document.getElementById("regPassword").dataset.valid == "1")
+    {
+        document.getElementById("emptyField").innerHTML = "";
     }
 }
 
@@ -114,13 +133,15 @@ function emailCheck(email)
 
     if (login.match(emailRegEx) == login)
     {
-        email.style.background = "rgba(116, 255, 111, 1)";
+        email.style.background = "rgba(150, 240, 146, 1)";
         document.getElementById("invalidEmail").innerHTML = "";
-        return;
+        return true;
     }
 
-    email.style.background = "rgba(250, 143, 143, 1)";
+    setInvalid(email);
     document.getElementById("invalidEmail").innerHTML = "The email you entered is invalid. Please enter a valid email.";
+    document.getElementById("invalidEmail").appendChild(warningImg);
+    return false;
 }
 
 function register()
@@ -131,12 +152,11 @@ function register()
     let login = document.getElementById("regEmail").value;
     let password = document.getElementById("regPassword").value;
 
-    if(document.getElementById("invalidEmail").innerText != "" || !emptyCheck(document.getElementById("firstName")) 
-        || !emptyCheck(document.getElementById("lastName")) || !emptyCheck(document.getElementById("regEmail")) 
-        || !emptyCheck(document.getElementById("regPassword")))
+    if(document.getElementById("invalidEmail").innerHTML != "" || document.getElementById("emptyField").innerHTML != "")
     {
         return;
     }
+
     //let hash = md5(password);
     document.getElementById("regErr").innerHTML = "";
 
