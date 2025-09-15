@@ -110,8 +110,8 @@ try
                     return;
                 } 
 
-
-                CreateContact(NewContact);
+                let ContactId = jsonObject.id;
+                CreateContact(NewContact,ContactId);
                 document.getElementById("ContactPopupMake").style.visibility = "hidden";
         
             }
@@ -128,23 +128,20 @@ try
 }
 
 
-function CreateContact(Contact)
+function CreateContact(Contact,ContactId)
 {
 const ContactTab = document.createElement("div");
 const Contactname = document.createElement("input");
 const EditBut = document.createElement("button");
 const DeleteBut = document.createElement("button");
 
-
-ContactTabID = Date.now();
-ContactTab.id = ContactTabID;
 ContactTab.className = "ContactTab";
 Contactname.readOnly = true;
 Contactname.value = Contact.firstName + " " + Contact.lastName;
 
 
-EditBut.onclick = () => Edit(ContactTabID, Contact);
-DeleteBut.onclick = () => DeleteCont(ContactTab,ContactTabID);
+EditBut.onclick = () => Edit(ContactId, Contact);
+DeleteBut.onclick = () => DeleteCont(ContactTab,ContactId);
 ContactTab.appendChild(Contactname);
 ContactTab.appendChild(EditBut);
 ContactTab.appendChild(DeleteBut);
