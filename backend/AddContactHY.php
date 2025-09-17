@@ -67,7 +67,7 @@ function returnWithError($err)
 
 function returnWithSuccess($message, $id)
 {
-    $retValue = '{"success":"' . $message . '","id":'. $id .'","error":""}';
+    $retValue = '{"success":"' . $message . '","id":' . $id . '","error":""}';
     sendResultInfoAsJson($retValue);
 }
 
