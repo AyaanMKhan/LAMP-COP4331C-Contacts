@@ -90,7 +90,7 @@ const NewContact  = {
 };
 
 let jsonPayload = JSON.stringify(NewContact);
-let url = urlBase + '/AddContact.php';
+let url = urlBase + '/AddContactHY.php';
 let xhr = new XMLHttpRequest();
 
 xhr.open("POST", url, true);
@@ -199,7 +199,7 @@ function EditCont()
     firstName: document.getElementById("EPopNameF").value,
     lastName: document.getElementById("EPopNameL").value,
     email: document.getElementById("EPopEmail").value,
-    phone: document.getElementById("EPopPhone").value,
+    phone: document.getElementById("EPopPhone").value
 };
 
 let jsonPayload = JSON.stringify(EditContact);
@@ -243,9 +243,9 @@ try
     }
 }
 
-function Edit(ContactTabID,Contact)
+function Edit(ContactId,Contact)
 {
-ContactEdited = ContactTabID;
+ContactEdited = ContactId;
 
  document.getElementById("ContactPopupEdit").style.visibility = "visible";
  document.getElementById("EPopNameF").value = Contact.firstName;
