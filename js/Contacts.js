@@ -281,6 +281,11 @@ ContactEdited = ContactId;
 function SearchContacts()
 {
 
+
+    document.querySelectorAll(".ContactTab").forEach (con => {
+        con.style.visibility = "hidden";
+    });
+
     let Temp = document.getElementById("SearchCon").value;
     const SearchData = {
         userId,
