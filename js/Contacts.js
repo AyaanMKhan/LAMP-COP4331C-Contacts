@@ -309,7 +309,11 @@ try
                 } 
                 jsonObject.results.forEach(contact => {
                     let ContactFound = document.getElementById(contact.id);
-                    ContactFound.style.visibility = "visible";
+                    if(ContactFound){
+                        ContactFound.style.visibility = "visible";
+                    }
+                    
+                    
                 });
                 
 
