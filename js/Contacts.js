@@ -7,6 +7,8 @@ let lName = '';
 
 let ContactEdited = null;
 
+
+
 //Also from Jean
 function refreshValues()
 {
@@ -136,6 +138,8 @@ const ContactEmail = document.createElement("input");
 const ContactPhone = document.createElement("input");
 const EditBut = document.createElement("button");
 const DeleteBut = document.createElement("button");
+
+ContactTab.style.visibility = "hidden";
 
 ContactTab.className = "ContactTab";
 ContactTab.id = ContactId;
@@ -303,7 +307,10 @@ try
                     document.getElementById("ErrorText").innerHTML = jsonObject.error;
                     return;
                 } 
-
+                jsonObject.results.forEach(contact => {
+                    let ContactFound = document.getElementById(contact.id);
+                    ContactFound.style.visibility = "visible";
+                });
                 
 
             }
