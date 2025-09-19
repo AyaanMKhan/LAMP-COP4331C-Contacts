@@ -132,18 +132,31 @@ function CreateContact(Contact,ContactId)
 {
 const ContactTab = document.createElement("div");
 const Contactname = document.createElement("input");
+const ContactEmail = document.createElement("input");
+const ContactPhone = document.createElement("input");
 const EditBut = document.createElement("button");
 const DeleteBut = document.createElement("button");
 
 ContactTab.className = "ContactTab";
 ContactTab.id = ContactId;
+
+Contactname.className = "Contact_Name";
 Contactname.readOnly = true;
 Contactname.value = Contact.firstName + " " + Contact.lastName;
 
+ContactEmail.className = "Contact_Email";
+ContactEmail.readOnly = true;
+ContactEmail.value = Contact.ContEmail;
+
+ContactPhone.className = "Contact_Phone";
+ContactPhone.readOnly = true;
+ContactPhone.value = Contact.ContPhone;
 
 EditBut.onclick = () => Edit(ContactId, Contact);
 DeleteBut.onclick = () => DeleteCont(ContactTab,ContactId);
 ContactTab.appendChild(Contactname);
+ContactTab.appendChild(ContactEmail);
+ContactTab.appendChild(ContactPhone);
 ContactTab.appendChild(EditBut);
 ContactTab.appendChild(DeleteBut);
 document.getElementById("SearchList").appendChild(ContactTab);
@@ -226,10 +239,16 @@ try
 
                 document.getElementById("ContactPopupEdit").style.visibility = "hidden";
                 let temp = document.getElementById(ContactEdited);
-                let oldname = temp.querySelector("input");
+                let newname = temp.querySelector(".Contact_Name");
+                let newemail = temp.querySelector(".Contact_Email");
+                let newphone = temp.querySelector(".Contact_Phone");
                 let F = document.getElementById("EPopNameF").value;
                 let L = document.getElementById("EPopNameL").value;
-                oldname.value = F + " " + L;
+                let E = document.getElementById("EPopEmail").value;
+                let P = document.getElementById("EPopPhone").value;
+                newname.value = F + " " + L;
+                newemail.value = E;
+                newphone.value = P;
                 ContactEdited = null;
         
             }
