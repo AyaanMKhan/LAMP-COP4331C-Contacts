@@ -136,6 +136,7 @@ const EditBut = document.createElement("button");
 const DeleteBut = document.createElement("button");
 
 ContactTab.className = "ContactTab";
+ContactTab.id = ContactId;
 Contactname.readOnly = true;
 Contactname.value = Contact.firstName + " " + Contact.lastName;
 
