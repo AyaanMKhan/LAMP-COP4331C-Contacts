@@ -288,7 +288,7 @@ function SearchContacts()
     };
 
 let jsonPayload = JSON.stringify(SearchData);
-let url = urlBase + '/SearchContact.php';
+let url = urlBase + '/SearchContacts.php';
 let xhr = new XMLHttpRequest();
 
 xhr.open("POST", url, true);
