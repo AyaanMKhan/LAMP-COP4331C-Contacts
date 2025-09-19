@@ -146,11 +146,11 @@ Contactname.value = Contact.firstName + " " + Contact.lastName;
 
 ContactEmail.className = "Contact_Email";
 ContactEmail.readOnly = true;
-ContactEmail.value = Contact.ContEmail;
+ContactEmail.value = Contact.email;
 
 ContactPhone.className = "Contact_Phone";
 ContactPhone.readOnly = true;
-ContactPhone.value = Contact.ContPhone;
+ContactPhone.value = Contact.phone;
 
 EditBut.onclick = () => Edit(ContactId, Contact);
 DeleteBut.onclick = () => DeleteCont(ContactTab,ContactId);
