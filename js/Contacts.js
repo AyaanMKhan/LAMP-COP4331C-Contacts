@@ -319,6 +319,7 @@ try
                     }
                     else{
                         CreateContact(contact,contact.id);
+                        ContactFound.style.visibility = "visible";
                     }
                     
                     
