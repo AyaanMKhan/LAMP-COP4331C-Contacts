@@ -326,7 +326,7 @@ try
                     
                 });
                 
-
+                ReArrainge();
             }
         };
 
@@ -340,6 +340,19 @@ try
 
 }
 
+function ReArrainge()
+{
+const SearchConatiner = document.getElementById("SearchList");
+const Contacts = Array.from(SearchConatiner.children);
+const Visable = Contacts.filter(i => i.style.visibility === "visible");
+const Hidden = Contacts.filter(i => i.style.visibility !== "visible");
 
+SearchConatiner.innerHTML = "";
+Visable.forEach(i => SearchConatiner.appendChild(i));
+Hidden.forEach(i => SearchConatiner.appendChild(i));
+
+
+
+}
 
 
