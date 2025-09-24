@@ -317,6 +317,9 @@ try
                     if(ContactFound){
                         ContactFound.style.visibility = "visible";
                     }
+                    else{
+                        CreateContact(contact,contact.id);
+                    }
                     
                     
                 });
@@ -334,5 +337,7 @@ try
     }
 
 }
+
+
 
 
