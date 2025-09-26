@@ -1,5 +1,5 @@
 //Change this as necessary to reflect new domain/file layout...
-const urlBase = 'http://209.38.140.72/backend'; 
+const urlBase = 'http://contacts-fall-25-cop.xyz/backend'; 
 const contactFile = "contacts.html";
 
 const emailRegEx = /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm
