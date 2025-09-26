@@ -1,5 +1,5 @@
 //Change this as necessary to reflect new domain/file layout...
-const urlBase = 'http://contacts-fall-25-cop.xyz/backend'; 
+const urlBase = 'https://contacts-fall-25-cop.xyz/backend'; 
 const contactFile = "contacts.html";
 
 const emailRegEx = /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm
@@ -243,4 +243,5 @@ function readCookie()
 	{
         document.getElementById("fullName").innerHTML = firstName + " " + lastName;
 	}
+
 }
