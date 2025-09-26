@@ -1,4 +1,4 @@
-const urlBase = 'http://contacts-fall-25-cop.xyz/backend'; 
+const urlBase = 'https://contacts-fall-25-cop.xyz/backend'; 
 const contactFile = "contacts.html";
 
 let userId = 0;
