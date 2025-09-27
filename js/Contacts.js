@@ -336,7 +336,16 @@ try
                         ContactFound.style.visibility = "visible";
                     }
                     else{
-                        CreateContact(contact,contact.id);
+                        const FoundCont = {
+                            userId,
+                            contactId: contact.id,
+                            firstName: contact.firstName,
+                            lastName: contact.lastName,
+                            email: contact.email,
+                            phone: contact.phone
+                        };
+
+                        CreateContact(FoundCont,contact.id);
                         let ContactFound = document.getElementById(contact.id);
                         ContactFound.style.visibility = "visible";
                     }
