@@ -132,7 +132,7 @@ const NewContact  = {
 };
 
 let jsonPayload = JSON.stringify(NewContact);
-let url = urlBase + '/AddContactHY.php';
+let url = urlBase + '/AddContact.php';
 let xhr = new XMLHttpRequest();
 
 xhr.open("POST", url, true);

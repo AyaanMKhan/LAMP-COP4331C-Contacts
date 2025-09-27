@@ -149,8 +149,7 @@ border-radius: 16px;
 
 #CreateCon
 {
-    height: 7%;
-    width: 10%;
+    padding: 12px 24px;
     border-radius: 20px;
     border-width: 5px;
     cursor: pointer;
