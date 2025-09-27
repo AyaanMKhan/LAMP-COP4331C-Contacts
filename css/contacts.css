@@ -3,7 +3,7 @@
 /*May need to edit hmtl file to make scroll bar conform to border - Jean*/
 #SearchList
 {
-    position: fixed;
+    position: relative;
     background-image: linear-gradient(to bottom right, rgb(144, 217, 237) 0%, rgba(15, 155, 186, 1) 100%);
     width: 90%;
     margin-left: 5%;
@@ -92,7 +92,7 @@ border-radius: 16px;
 
 #ContactsHeader
 {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
@@ -134,6 +134,7 @@ border-radius: 16px;
 
 #CreateContact
 {
+    position: relative;
     width: 80%;
     margin-left: 10%;
     margin-right: 10%;
@@ -141,13 +142,12 @@ border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 1400px;
+    margin-top: 20px;
     
 }
 
 #CreateCon
 {
-    position: relative;
     height: 7%;
     width: 10%;
     border-radius: 20px;
@@ -160,6 +160,7 @@ border-radius: 16px;
     font-size: 14pt;
     margin-right: 45%;
     margin-left: 45%;
+    z-index: 5;
 }
 
 #ContactMake
