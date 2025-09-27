@@ -76,6 +76,14 @@ function CreateContactPop()
     document.getElementById("overlayBG").style.visibility = "visible";
 }
 
+function EditContactPop()
+{
+    document.getElementById("ContactPopupEdit").style.display = "flex";
+    document.getElementById("ContactPopupEdit").style.visibility = "visible";
+    document.getElementById("overlayBG").style.display = "block";
+    document.getElementById("overlayBG").style.visibility = "visible";
+}
+
 //Exits overlay - Jean
 function exitContactPop()
 {
@@ -90,6 +98,21 @@ function exitContactPop()
     document.getElementById("PopPhone").value = "";
 
 }
+
+function exitEditContactPop()
+{
+    document.getElementById("ContactPopupEdit").style.display = "none";
+    document.getElementById("ContactPopupEdit").style.visibility = "none";
+    document.getElementById("overlayBG").style.display = "none";
+    document.getElementById("overlayBG").style.visibility = "none";
+
+    document.getElementById("EPopNameF").value = "";
+    document.getElementById("EPopNameL").value = "";
+    document.getElementById("EPopEmail").value = "";
+    document.getElementById("EPopPhone").value = "";
+
+}
+
 
 function SubmitContact()
 {
@@ -283,18 +306,19 @@ try
     {
         document.getElementById("ErrorText").innerHTML = err.message;
     }
+    exitEditContactPop()
 }
 
 function Edit(ContactId,Contact)
 {
-console.log(Contact);
 ContactEdited = ContactId;
 
- document.getElementById("ContactPopupEdit").style.visibility = "visible";
  document.getElementById("EPopNameF").value = Contact.firstName;
  document.getElementById("EPopNameL").value = Contact.lastName;
  document.getElementById("EPopEmail").value = Contact.email;
  document.getElementById("EPopPhone").value = Contact.phone;
+
+ EditContactPop();
 }
 
 function SearchContacts()
