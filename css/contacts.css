@@ -161,6 +161,7 @@ border-radius: 16px;
     margin-top: 1400px;
     margin-right: 45%;
     margin-left: 45%;
+    z-index: 4;
 }
 
 #ContactMake
