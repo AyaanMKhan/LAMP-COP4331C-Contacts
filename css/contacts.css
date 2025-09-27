@@ -141,13 +141,13 @@ border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 16px;
+    margin-top: 1400px;
     
 }
 
 #CreateCon
 {
-    position: fixed;
+    position: relative;
     height: 7%;
     width: 10%;
     border-radius: 20px;
@@ -158,10 +158,8 @@ border-radius: 16px;
     border-color: rgb(52, 100, 109);
     font-weight: bold;
     font-size: 14pt;
-    margin-top: 1400px;
     margin-right: 45%;
     margin-left: 45%;
-    z-index: 4;
 }
 
 #ContactMake
