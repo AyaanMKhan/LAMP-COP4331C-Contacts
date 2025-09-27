@@ -1,3 +1,5 @@
+//Created by Hiroki Yoshida, edited by Jean Deguzman
+
 const urlBase = 'https://contacts-fall-25-cop.xyz/backend'; 
 const contactFile = "contacts.html";
 
@@ -65,23 +67,37 @@ function logout()
 }
 
 
-
+//Made edit to create overlay effect instead of a visibility toggle - Jean
 function CreateContactPop()
 {
-document.getElementById("ContactPopupMake").style.visibility = "visible";
+    document.getElementById("ContactPopupMake").style.display = "flex";
+    document.getElementById("ContactPopupMake").style.visibility = "visible";
+    document.getElementById("overlayBG").style.display = "block";
+    document.getElementById("overlayBG").style.visibility = "visible";
+}
+
+//Exits overlay - Jean
+function exitContactPop()
+{
+    document.getElementById("ContactPopupMake").style.display = "none";
+    document.getElementById("ContactPopupMake").style.visibility = "none";
+    document.getElementById("overlayBG").style.display = "none";
+    document.getElementById("overlayBG").style.visibility = "none";
+
+    document.getElementById("PopNameF").value = "";
+    document.getElementById("PopNameL").value = "";
+    document.getElementById("PopEmail").value = "";
+    document.getElementById("PopPhone").value = "";
+
 }
 
 function SubmitContact()
 {
 
-
 let ContNameF = document.getElementById("PopNameF").value;
 let ContNameL = document.getElementById("PopNameL").value;
 let ContEmail = document.getElementById("PopEmail").value;
 let ContPhone = document.getElementById("PopPhone").value;
-
-
-
 
 const NewContact  = {
     userId,
@@ -126,6 +142,8 @@ try
     {
         document.getElementById("ErrorText").innerHTML = err.message;
     }
+
+    exitContactPop();
 
 }
 
