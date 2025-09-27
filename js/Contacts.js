@@ -1,5 +1,6 @@
 //Created by Hiroki Yoshida, edited by Jean Deguzman
-
+//<a target="_blank" href="https://icons8.com/icon/114093/edit">Edit</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+//<a target="_blank" href="https://icons8.com/icon/67884/delete">Delete</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 const urlBase = 'https://contacts-fall-25-cop.xyz/backend'; 
 const contactFile = "contacts.html";
 
@@ -197,6 +198,9 @@ ContactEmail.value = Contact.email;
 ContactPhone.className = "Contact_Phone";
 ContactPhone.readOnly = true;
 ContactPhone.value = Contact.phone;
+
+EditBut.className = "EDIT";
+DeleteBut.className =  "DELETE";
 
 EditBut.onclick = () => Edit(ContactId, Contact);
 DeleteBut.onclick = () => DeleteCont(ContactTab,ContactId);
