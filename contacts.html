@@ -1,4 +1,4 @@
-<!-- Created By Hiroki Yoshida for COP 4331-->
+<!-- Created By Hiroki Yoshida for COP 4331, edited by Jean Deguzman-->
 <html>
 
 <head>
@@ -7,10 +7,7 @@
     <script type ="text/javascript" src="js/Contacts.js"></script>
 </head>
 
-
 <body onload="readCookie()" id = "ContactsMain">
-
-
     <div id = "ContactsHeader">
         <div id = "ContactsHeaderLeft">
             <input type="text" id="SearchCon" placeholder="Search Contacts">
@@ -22,6 +19,9 @@
 
     </div>
    
+    <!--Div for popup overlay -Jean -->>
+    <div id = "overlayBG"></div>
+
     <div id = "SearchList">
         
 
@@ -40,6 +40,7 @@
         <input type="text" id="PopEmail" placeholder="Email">
         <input type="text" id="PopPhone" placeholder="Phone Number">
         <button type = "button" id="ContactMake" onclick="SubmitContact()">Submit</button>
+        <button type = "button" id="exitContactMake" onclick="exitContactPop()">X</button>
     </div>
 
     <div id = "ContactPopupEdit">
@@ -49,11 +50,5 @@
         <input type="text" id="EPopPhone" placeholder="Phone Number">
         <button type = "button" id="ContactEdit" onclick="EditCont()">Submit</button>
     </div>
-
-    
-
 </body>
-
-
-
 </html>
