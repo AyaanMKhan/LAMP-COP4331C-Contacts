@@ -202,7 +202,7 @@ border-radius: 16px;
     border-width: 5px;
 }
 
-#EDIT
+.EDIT
 {
     padding: 12px 24px;
     border-radius: 20px;
@@ -214,7 +214,7 @@ border-radius: 16px;
     background-image: url(icons8-edit-64.png);
 }
 
-#DELETE
+.DELETE
 {
     padding: 12px 24px;
     border-radius: 20px;
@@ -227,7 +227,7 @@ border-radius: 16px;
 }
 
 
-#Contact_Name, #Contact_Email, #Contact_Phone
+.Contact_Name, .Contact_Email, .Contact_Phone
 {
     border-radius: 7px;
     font-family: Arial, sans-serif;
