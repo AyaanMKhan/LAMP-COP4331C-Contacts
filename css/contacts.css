@@ -63,7 +63,7 @@ border-radius: 16px;
     width: 50%;
     margin-left: 25%;
     margin-right: 25%;
-    z-index: 3;
+    z-index: 1000;
     border-radius: 10px;
     border-style: outset;
     border-width: 6px;
