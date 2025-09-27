@@ -287,6 +287,7 @@ try
 
 function Edit(ContactId,Contact)
 {
+console.log(Contact);
 ContactEdited = ContactId;
 
  document.getElementById("ContactPopupEdit").style.visibility = "visible";
