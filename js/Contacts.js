@@ -55,6 +55,7 @@ function readCookie()
 	else
 	{
         document.getElementById("fullName").innerHTML = firstName + " " + lastName;
+        LoadAllContacts();  // Load all contacts when page loads
 	}
 }
 
@@ -324,13 +325,18 @@ ContactEdited = ContactId;
 
 function SearchContacts()
 {
-
+    let Temp = document.getElementById("SearchCon").value;
+    
+    // If search is empty, load all contacts
+    if (Temp.trim() === "") {
+        LoadAllContacts();
+        return;
+    }
 
     document.querySelectorAll(".ContactTab").forEach (con => {
         con.style.visibility = "hidden";
     });
 
-    let Temp = document.getElementById("SearchCon").value;
     const SearchData = {
         userId,
         search: Temp
@@ -391,6 +397,53 @@ try
         document.getElementById("ErrorText").innerHTML = err.message;
     }
 
+}
+
+function LoadAllContacts()
+{
+    const SearchData = {
+        userId,
+        search: ""  // Empty search to get all contacts
+    };
+
+    let jsonPayload = JSON.stringify(SearchData);
+    let url = urlBase + '/SearchContacts.php';
+    let xhr = new XMLHttpRequest();
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try {
+        xhr.onreadystatechange = function() {
+            if(this.readyState == 4 && this.status == 200) {
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                if (jsonObject.error !== "") {
+                    document.getElementById("ErrorText").innerHTML = jsonObject.error;
+                    return;
+                } 
+                
+                // Clear existing contacts
+                document.getElementById("SearchList").innerHTML = "";
+                
+                // Load all contacts
+                jsonObject.results.forEach(contact => {
+                    const FoundCont = {
+                        userId,
+                        contactId: contact.id,
+                        firstName: contact.firstName,
+                        lastName: contact.lastName,
+                        email: contact.email,
+                        phone: contact.phone
+                    };
+                    CreateContact(FoundCont, contact.id);
+                });
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch(err) {
+        document.getElementById("ErrorText").innerHTML = err.message;
+    }
 }
 
 function ReArrainge()

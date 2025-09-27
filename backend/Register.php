@@ -64,7 +64,7 @@ else
             $result = $idStmt->get_result();
 
             $row = $result->fetch_assoc();
-            returnWithInfo($row['Id']);
+            returnWithInfo($row['Id'], $firstName, $lastName);
             $idStmt->close();
             $conn->close();
         }
@@ -98,9 +98,9 @@ function returnWithError($err)
     sendResultInfoAsJson($retValue);
 }
 
-function returnWithInfo($id)
+function returnWithInfo($id, $firstName, $lastName)
 {
-    $retValue = '{"id":' . $id . ',"error":""}';
+    $retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
     sendResultInfoAsJson($retValue);
 }
 ?>
