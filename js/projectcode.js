@@ -124,6 +124,7 @@ function clearError()
     && document.getElementById("regPassword").dataset.valid == "1")
     {
         document.getElementById("emptyField").innerHTML = "";
+        document.getElementById("regErr").innerHTML = "";
     }
 }
 
@@ -152,13 +153,13 @@ function register()
     let login = document.getElementById("regEmail").value;
     let password = document.getElementById("regPassword").value;
 
+    //let hash = md5(password);
+    document.getElementById("regErr").innerHTML = "";
+
     if(document.getElementById("invalidEmail").innerHTML != "" || document.getElementById("emptyField").innerHTML != "")
     {
         return;
     }
-
-    //let hash = md5(password);
-    document.getElementById("regErr").innerHTML = "";
 
     let temp = {login:login, password:password, first_name:fName, last_name:lName};
     let jsonPayload = JSON.stringify(temp);
