@@ -294,6 +294,7 @@ try
                 newname.value = F + " " + L;
                 newemail.value = E;
                 newphone.value = P;
+                exitEditContactPop();
                 ContactEdited = null;
         
             }
@@ -306,7 +307,7 @@ try
     {
         document.getElementById("ErrorText").innerHTML = err.message;
     }
-    exitEditContactPop()
+    
 }
 
 function Edit(ContactId,Contact)
