@@ -147,7 +147,7 @@ border-radius: 16px;
 
 #CreateCon
 {
-    position: relative;
+    position: fixed;
     height: 7%;
     width: 10%;
     border-radius: 20px;
@@ -161,7 +161,6 @@ border-radius: 16px;
     margin-top: 1400px;
     margin-right: 45%;
     margin-left: 45%;
-    z-index: 4;
 }
 
 #ContactMake
