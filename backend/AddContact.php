@@ -36,9 +36,11 @@ if (!$stmt->execute()) {
     exit();
 }
 
+$contactid = $conn->insert_id;
+
 $stmt->close();
 $conn->close();
-returnWithSuccess("Contact added successfully");
+returnWithSuccess("Contact added successfully",$contactid);
 
 function getRequestInfo()
 {
@@ -63,9 +65,9 @@ function returnWithError($err)
     sendResultInfoAsJson($retValue);
 }
 
-function returnWithSuccess($message)
+function returnWithSuccess($message, $id)
 {
-    $retValue = '{"success":"' . $message . '","error":""}';
+    $retValue = '{"success":"' . $message . '","id":' . $id . ',"error":""}';
     sendResultInfoAsJson($retValue);
 }
 
