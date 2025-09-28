@@ -8,14 +8,9 @@ let userId = 0;
 let fName = '';
 let lName = '';
 
-//Warning img for errors
-/*function createWarningImg()
-{
-    let warningImg = document.createElement('img');
-    warningImg.src = 'css/warning-sign-30915_1280.png';
-    warningImg.id = 'warningImg';
-    return warningImg;
-}*/
+let warningImg = document.createElement('img');
+warningImg.src = 'css/warning-sign-30915_1280.png';
+warningImg.id = 'warningImg';
 
 //Sets stored values to nothing
 function refreshValues()
@@ -62,6 +57,7 @@ function login()
                 if(error !== "")
                 {
                     document.getElementById("loginErr").innerHTML = error;
+                    document.getElementById("loginErr").style.visibility = "visible";
                     document.getElementById("loginErr").appendChild(warningImg);
                     return;
                 }
