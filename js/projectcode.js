@@ -97,6 +97,15 @@ function setInvalid(id)
     id.style.backgroundBlendMode = "lighten";
 }
 
+function setValid(id)
+{
+    id.style.background = "";
+    id.style.backgroundSize = "";
+    id.style.backgroundRepeat = "";
+    id.style.backgroundPosition = "";
+    id.style.backgroundBlendMode = "";
+}
+
 function emptyCheck(id)
 {
     let emptWarn = document.getElementById("emptyField");
