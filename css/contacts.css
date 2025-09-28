@@ -295,10 +295,9 @@ body {
 }
 
 .EDIT::before {
-    content: 'EDIT';
-    font-size: 8px;
+    content: '✏️';
+    font-size: 16px;
     font-weight: bold;
-    letter-spacing: 1px;
 }
 
 .DELETE {
@@ -311,10 +310,9 @@ body {
 }
 
 .DELETE::before {
-    content: 'DEL';
-    font-size: 8px;
+    content: '🗑️';
+    font-size: 16px;
     font-weight: bold;
-    letter-spacing: 1px;
 }
 
 .EDIT:hover, .DELETE:hover {
