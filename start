@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "🚀 Starting Contacts Application..."
+
+echo "Cleaning up existing servers..."
+lsof -ti:3000 | xargs kill -9 2>/dev/null || true
+
+echo "Starting frontend on http://localhost:3000..."
+python3 -m http.server 3000 &
+
+echo "✅ Frontend server started!"
+echo "Frontend: http://localhost:3000"
+echo "Backend: https://contacts-fall-25-cop.xyz/backend (remote)"
+echo ""
+echo "Press Ctrl+C to stop"
+wait
