@@ -1,12 +1,29 @@
 <?php
 
+// CORS headers
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { 
+    http_response_code(204); 
+    exit(); 
+}
+
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
 error_reporting(0);
 
 $inData = getRequestInfo();
 
-if (!isset($inData["userId"])) {
+// Fallbacks if JSON body missing userId
+if (!isset($inData["userId"]) && isset($_REQUEST['userId'])) {
+    $inData["userId"] = (int)$_REQUEST['userId'];
+}
+if (!isset($inData["userId"]) && isset($_COOKIE['userId'])) {
+    $inData["userId"] = (int)$_COOKIE['userId'];
+}
+
+if (!isset($inData["userId"]) || (int)$inData["userId"] <= 0) {
     returnWithError("userId is required");
     exit();
 }

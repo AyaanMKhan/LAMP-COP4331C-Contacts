@@ -24,44 +24,28 @@ function refreshValues()
 function readCookie()
 {
 	userId = -1;
-	let data = document.cookie;
-	console.log("Raw cookie data:", data);
-	let splits = data.split(";");
+	fName = '';
+	lName = '';
 
-	for(var i = 0; i < splits.length; i++) 
-	{
-		let thisOne = splits[i].trim();
-		let tokens = thisOne.split("=");
+	const data = document.cookie;
+	const splits = data.split(";");
 
-		if( tokens[0] == "fName" )
-		{
-			firstName = tokens[1];
-		}
-
-		else if( tokens[0] == "lName" )
-		{
-			lastName = tokens[1];
-		}
-
-		else if( tokens[0] == "userId" )
-		{
-			userId = parseInt( tokens[1].trim() );
-		}
+	for (let i = 0; i < splits.length; i++) {
+		const [k, vRaw] = splits[i].trim().split("=");
+		const v = (vRaw || "").trim();
+		if (k === "fName") fName = v;
+		else if (k === "lName") lName = v;
+		else if (k === "userId") userId = Number(v);
 	}
 	
-	console.log("Parsed userId from cookie:", userId);
-	
-	if( userId < 0 )
-	{
-		console.log("userId is negative, redirecting to login");
+	if (!Number.isInteger(userId) || userId <= 0) {
 		window.location.href = "index.html";
+		return;
 	}
 
-	else
-	{
-        document.getElementById("fullName").innerHTML = firstName + " " + lastName;
-        LoadAllContacts();  // Load all contacts when page loads
-	}
+	// Safe: these are declared globals
+	document.getElementById("fullName").textContent = `${fName} ${lName}`;
+	LoadAllContacts();
 }
 
 
@@ -410,19 +394,17 @@ try
 function LoadAllContacts()
 {
     // Ensure userId is valid before proceeding
-    if (!userId || userId < 0) {
+    if (!Number.isInteger(userId) || userId <= 0) {
         console.error("Invalid userId:", userId);
         return;
     }
     
     const SearchData = {
-        userId,
-        search: ""  // Empty search to get all contacts
+        userId: Number(userId),   // never undefined in JSON
+        search: ""                // Empty search to get all contacts
     };
 
     let jsonPayload = JSON.stringify(SearchData);
-    console.log("Sending data:", jsonPayload);
-    console.log("userId in JS before fetch:", userId);
     
     let url = urlBase + '/SearchContacts.php';
     let xhr = new XMLHttpRequest();
@@ -431,6 +413,8 @@ function LoadAllContacts()
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
     try {
+        // Capture userId in closure to ensure it's available in callback
+        const currentUserId = userId;
         xhr.onreadystatechange = function() {
             if(this.readyState == 4 && this.status == 200) {
                 let jsonObject = JSON.parse(xhr.responseText);
@@ -446,7 +430,7 @@ function LoadAllContacts()
                 // Load all contacts
                 jsonObject.results.forEach(contact => {
                     const FoundCont = {
-                        userId,
+                        userId: currentUserId,
                         contactId: contact.id,
                         firstName: contact.firstName,
                         lastName: contact.lastName,
