@@ -4,11 +4,38 @@
 const urlBase = 'https://contacts-fall-25-cop.xyz/backend'; 
 const contactFile = "contacts.html";
 
+const emailRegEx = /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm
+
 let userId = 0;
 let fName = '';
 let lName = '';
 
 let ContactEdited = null;
+
+// Validation functions
+function validateEmptyCheck(field) {
+    return field.value.trim() !== "";
+}
+
+function validateEmailCheck(email) {
+    return emailRegEx.test(email.value.trim());
+}
+
+function setInvalid(id) {
+    id.style.background = "rgba(252, 180, 180, 1)";
+    id.style.backgroundSize = "contain";
+    id.style.backgroundRepeat = "no-repeat";
+    id.style.backgroundPosition = "right";
+    id.style.backgroundBlendMode = "lighten";
+}
+
+function setValid(id) {
+    id.style.background = "";
+    id.style.backgroundSize = "";
+    id.style.backgroundRepeat = "";
+    id.style.backgroundPosition = "";
+    id.style.backgroundBlendMode = "";
+}
 
 
 
@@ -58,6 +85,17 @@ function logout()
 //Made edit to create overlay effect instead of a visibility toggle - Jean
 function CreateContactPop()
 {
+    // Clear all error messages when opening popup
+    document.getElementById("createEmptyField").style.display = "none";
+    document.getElementById("createInvalidEmail").style.display = "none";
+    document.getElementById("createServerError").style.display = "none";
+    
+    // Clear field validation styling
+    setValid(document.getElementById("PopNameF"));
+    setValid(document.getElementById("PopNameL"));
+    setValid(document.getElementById("PopEmail"));
+    setValid(document.getElementById("PopPhone"));
+    
     // Make sure popup is properly shown
     document.getElementById("ContactPopupMake").style.display = "flex";
     document.getElementById("ContactPopupMake").style.visibility = "visible";
@@ -67,6 +105,17 @@ function CreateContactPop()
 
 function EditContactPop()
 {
+    // Clear all error messages when opening popup
+    document.getElementById("editEmptyField").style.display = "none";
+    document.getElementById("editInvalidEmail").style.display = "none";
+    document.getElementById("editServerError").style.display = "none";
+    
+    // Clear field validation styling
+    setValid(document.getElementById("EPopNameF"));
+    setValid(document.getElementById("EPopNameL"));
+    setValid(document.getElementById("EPopEmail"));
+    setValid(document.getElementById("EPopPhone"));
+    
     document.getElementById("ContactPopupEdit").style.display = "flex";
     document.getElementById("ContactPopupEdit").style.visibility = "visible";
     document.getElementById("overlayBG").style.display = "block";
@@ -104,19 +153,78 @@ function exitEditContactPop()
 
 function SubmitContact()
 {
+    // Clear all error messages at the start
+    document.getElementById("createEmptyField").style.display = "none";
+    document.getElementById("createInvalidEmail").style.display = "none";
+    document.getElementById("createServerError").style.display = "none";
 
-let ContNameF = document.getElementById("PopNameF").value;
-let ContNameL = document.getElementById("PopNameL").value;
-let ContEmail = document.getElementById("PopEmail").value;
-let ContPhone = document.getElementById("PopPhone").value;
+    // Get form fields
+    let firstNameField = document.getElementById("PopNameF");
+    let lastNameField = document.getElementById("PopNameL");
+    let emailField = document.getElementById("PopEmail");
+    let phoneField = document.getElementById("PopPhone");
 
-const NewContact  = {
-    userId,
-    firstName: ContNameF,
-    lastName: ContNameL,
-    email: ContEmail,
-    phone: ContPhone
-};
+    // Validate required fields
+    let isValid = true;
+    let hasEmptyFields = false;
+
+    // Check for empty fields
+    if (!validateEmptyCheck(firstNameField)) {
+        setInvalid(firstNameField);
+        hasEmptyFields = true;
+    } else {
+        setValid(firstNameField);
+    }
+
+    if (!validateEmptyCheck(lastNameField)) {
+        setInvalid(lastNameField);
+        hasEmptyFields = true;
+    } else {
+        setValid(lastNameField);
+    }
+
+    if (!validateEmptyCheck(emailField)) {
+        setInvalid(emailField);
+        hasEmptyFields = true;
+    } else {
+        setValid(emailField);
+        // Check email format if not empty
+        if (!validateEmailCheck(emailField)) {
+            setInvalid(emailField);
+            document.getElementById("createInvalidEmail").style.display = "block";
+            isValid = false;
+        }
+    }
+
+    if (!validateEmptyCheck(phoneField)) {
+        setInvalid(phoneField);
+        hasEmptyFields = true;
+    } else {
+        setValid(phoneField);
+    }
+
+    if (hasEmptyFields) {
+        document.getElementById("createEmptyField").style.display = "block";
+        isValid = false;
+    }
+
+    if (!isValid) {
+        return;
+    }
+
+    // If validation passes, proceed with creating contact
+    let ContNameF = firstNameField.value.trim();
+    let ContNameL = lastNameField.value.trim();
+    let ContEmail = emailField.value.trim();
+    let ContPhone = phoneField.value.trim();
+
+    const NewContact  = {
+        userId,
+        firstName: ContNameF,
+        lastName: ContNameL,
+        email: ContEmail,
+        phone: ContPhone
+    };
 
 let jsonPayload = JSON.stringify(NewContact);
 let url = urlBase + '/AddContact.php';
@@ -135,6 +243,8 @@ try
 
                 if (jsonObject.error !== "")
                 {
+                    document.getElementById("createServerError").innerHTML = jsonObject.error;
+                    document.getElementById("createServerError").style.display = "block";
                     return;
                 } 
 
@@ -261,15 +371,74 @@ try
 
 function EditCont()
 {
+    // Clear all error messages at the start
+    document.getElementById("editEmptyField").style.display = "none";
+    document.getElementById("editInvalidEmail").style.display = "none";
+    document.getElementById("editServerError").style.display = "none";
 
+    // Get form fields
+    let firstNameField = document.getElementById("EPopNameF");
+    let lastNameField = document.getElementById("EPopNameL");
+    let emailField = document.getElementById("EPopEmail");
+    let phoneField = document.getElementById("EPopPhone");
+
+    // Validate required fields
+    let isValid = true;
+    let hasEmptyFields = false;
+
+    // Check for empty fields
+    if (!validateEmptyCheck(firstNameField)) {
+        setInvalid(firstNameField);
+        hasEmptyFields = true;
+    } else {
+        setValid(firstNameField);
+    }
+
+    if (!validateEmptyCheck(lastNameField)) {
+        setInvalid(lastNameField);
+        hasEmptyFields = true;
+    } else {
+        setValid(lastNameField);
+    }
+
+    if (!validateEmptyCheck(emailField)) {
+        setInvalid(emailField);
+        hasEmptyFields = true;
+    } else {
+        setValid(emailField);
+        // Check email format if not empty
+        if (!validateEmailCheck(emailField)) {
+            setInvalid(emailField);
+            document.getElementById("editInvalidEmail").style.display = "block";
+            isValid = false;
+        }
+    }
+
+    if (!validateEmptyCheck(phoneField)) {
+        setInvalid(phoneField);
+        hasEmptyFields = true;
+    } else {
+        setValid(phoneField);
+    }
+
+    if (hasEmptyFields) {
+        document.getElementById("editEmptyField").style.display = "block";
+        isValid = false;
+    }
+
+    if (!isValid) {
+        return;
+    }
+
+    // If validation passes, proceed with editing contact
     const EditContact  = {
-    userId,
-    contactId: ContactEdited,
-    firstName: document.getElementById("EPopNameF").value,
-    lastName: document.getElementById("EPopNameL").value,
-    email: document.getElementById("EPopEmail").value,
-    phone: document.getElementById("EPopPhone").value
-};
+        userId,
+        contactId: ContactEdited,
+        firstName: firstNameField.value.trim(),
+        lastName: lastNameField.value.trim(),
+        email: emailField.value.trim(),
+        phone: phoneField.value.trim()
+    };
 
 let jsonPayload = JSON.stringify(EditContact);
 let url = urlBase + '/UpdateContact.php';
@@ -288,6 +457,8 @@ try
 
                 if (jsonObject.error !== "")
                 {
+                    document.getElementById("editServerError").innerHTML = jsonObject.error;
+                    document.getElementById("editServerError").style.display = "block";
                     return;
                 } 
 

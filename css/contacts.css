@@ -618,3 +618,23 @@ body {
         font-size: 12px;
     }
 }
+
+/* Error Messages - Hidden by default, shown when needed */
+.error {
+    display: none;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: #ff0066;
+    text-shadow: 
+        0 0 10px #ff0066,
+        0 0 20px #ff0066;
+    text-align: center;
+    margin: 5px 0;
+    padding: 8px;
+    background: rgba(255, 0, 102, 0.1);
+    border: 2px solid #ff0066;
+    border-radius: 8px;
+    box-shadow: 0 0 15px #ff0066;
+    letter-spacing: 1px;
+    width: 100%;
+}

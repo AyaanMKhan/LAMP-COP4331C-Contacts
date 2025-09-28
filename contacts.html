@@ -39,6 +39,12 @@
         <input type="text" id="PopNameL" placeholder="Last Name">
         <input type="text" id="PopEmail" placeholder="Email">
         <input type="text" id="PopPhone" placeholder="Phone Number">
+        
+        <!-- Error messages for create contact -->
+        <span id="createEmptyField" class="error">Do not leave any fields empty.</span>
+        <span id="createInvalidEmail" class="error">The email you entered is invalid. Please enter a valid email.</span>
+        <span id="createServerError" class="error"></span>
+        
         <button type = "button" id="ContactMake" onclick="SubmitContact()">Submit</button>
         <button type = "button" id="exitContactMake" onclick="exitContactPop()">X</button>
     </div>
@@ -48,6 +54,12 @@
         <input type="text" id="EPopNameL" placeholder="Last Name">
         <input type="text" id="EPopEmail" placeholder="Email">
         <input type="text" id="EPopPhone" placeholder="Phone Number">
+        
+        <!-- Error messages for edit contact -->
+        <span id="editEmptyField" class="error">Do not leave any fields empty.</span>
+        <span id="editInvalidEmail" class="error">The email you entered is invalid. Please enter a valid email.</span>
+        <span id="editServerError" class="error"></span>
+        
         <button type = "button" id="ContactEdit" onclick="EditCont()">Submit</button>
         <button type = "button" id="exitContactMake" onclick="exitEditContactPop()">X</button>
     </div>
