@@ -21,14 +21,14 @@ if ($conn->connect_error) {
     exit();
 }
 
-$stmt = $conn->prepare("SELECT Id, first_name, last_name, email, phone FROM Contacts WHERE userId=? AND (first_name LIKE ? OR last_name LIKE ? OR email LIKE ? OR phone LIKE ?)");
+$stmt = $conn->prepare("SELECT Id, first_name, last_name, email, phone FROM Contacts WHERE userId=? AND (first_name LIKE ? OR last_name LIKE ?)");
 if (!$stmt) {
     returnWithError($conn->error);
     exit();
 }
 
 $searchTerm = "%" . $inData["search"] . "%";
-$stmt->bind_param("issss", $inData["userId"], $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+$stmt->bind_param("iss", $inData["userId"], $searchTerm, $searchTerm);
 
 if (!$stmt->execute()) {
     returnWithError("SQL Execution Error: " . $stmt->error);
