@@ -176,9 +176,9 @@ try
 function CreateContact(Contact,ContactId)
 {
 const ContactTab = document.createElement("div");
-const Contactname = document.createElement("input");
-const ContactEmail = document.createElement("input");
-const ContactPhone = document.createElement("input");
+const Contactname = document.createElement("p");
+const ContactEmail = document.createElement("p");
+const ContactPhone = document.createElement("p");
 const EditBut = document.createElement("button");
 const DeleteBut = document.createElement("button");
 
@@ -189,15 +189,15 @@ ContactTab.id = ContactId;
 
 Contactname.className = "Contact_Name";
 Contactname.readOnly = true;
-Contactname.value = Contact.firstName + " " + Contact.lastName;
+Contactname.innerText = Contact.firstName + " " + Contact.lastName;
 
 ContactEmail.className = "Contact_Email";
 ContactEmail.readOnly = true;
-ContactEmail.value = Contact.email;
+ContactEmail.innerText = Contact.email;
 
 ContactPhone.className = "Contact_Phone";
 ContactPhone.readOnly = true;
-ContactPhone.value = Contact.phone;
+ContactPhone.innerText = Contact.phone;
 
 EditBut.className = "EDIT";
 DeleteBut.className =  "DELETE";
