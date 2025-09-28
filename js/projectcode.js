@@ -190,57 +190,47 @@ function register()
     //let hash = md5(password);
     document.getElementById("regErr").innerHTML = "";
 
+    // Clear all error messages at the start
+    document.getElementById("emptyField").style.visibility = "hidden";
+    document.getElementById("invalidEmail").style.visibility = "hidden";
+    document.getElementById("invalidPassword").style.visibility = "hidden";
+
     // First validate all fields without showing colors
     let isValid = true;
     
-    // Validate required fields
-    if (!validateEmptyCheck(firstNameField)) {
+    // Validate required fields - check for empty fields first
+    if (!validateEmptyCheck(firstNameField) || !validateEmptyCheck(lastNameField) || !validateEmptyCheck(passwordField)) {
         setInvalid(firstNameField);
+        setInvalid(lastNameField);
+        setInvalid(passwordField);
         document.getElementById("emptyField").style.visibility = "visible";
         isValid = false;
     } else {
         setValid(firstNameField);
-        document.getElementById("emptyField").style.visibility = "hidden";
-        document.getElementById("invalidPassword").style.visibility = "hidden";
-        document.getElementById("invalidEmail").style.visibility = "hidden";
-    }
-    
-    if (!validateEmptyCheck(lastNameField)) {
-        setInvalid(lastNameField);
-        document.getElementById("emptyField").style.visibility = "visible";
-        isValid = false;
-    } else {
         setValid(lastNameField);
-        document.getElementById("emptyField").style.visibility = "hidden";
-        document.getElementById("invalidPassword").style.visibility = "hidden";
-        document.getElementById("invalidEmail").style.visibility = "hidden";
+        setValid(passwordField);
+        
+        // Now check password length if not empty
+        if (!validatePasswordCheck(passwordField)) {
+            console.log("Password too short:", passwordField.value.length);
+            setInvalid(passwordField);
+            document.getElementById("invalidPassword").style.visibility = "visible";
+            isValid = false;
+        }
     }
     
-    if (!validateEmptyCheck(passwordField)) {
-        setInvalid(passwordField);
+    // Validate email if not empty
+    if (!validateEmptyCheck(emailField)) {
+        setInvalid(emailField);
         document.getElementById("emptyField").style.visibility = "visible";
         isValid = false;
-    } else if (!validatePasswordCheck(passwordField)) {
-        setInvalid(passwordField);
-        document.getElementById("invalidPassword").style.visibility = "visible";
-        isValid = false;
-    } else {
-        setValid(passwordField);
-        document.getElementById("emptyField").style.visibility = "hidden";
-        document.getElementById("invalidPassword").style.visibility = "hidden";
-        document.getElementById("invalidEmail").style.visibility = "hidden";
-    }
-    
-    // Validate email
-    if (!validateEmailCheck(emailField)) {
+    } else if (!validateEmailCheck(emailField)) {
+        console.log("Invalid email:", emailField.value);
         setInvalid(emailField);
         document.getElementById("invalidEmail").style.visibility = "visible";
         isValid = false;
     } else {
         setValid(emailField);
-        document.getElementById("invalidEmail").style.visibility = "hidden";
-        document.getElementById("invalidPassword").style.visibility = "hidden";
-        document.getElementById("emptyField").style.visibility = "hidden";
     }
 
     if (!isValid) {
