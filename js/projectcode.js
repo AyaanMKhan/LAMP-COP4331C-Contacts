@@ -215,14 +215,17 @@ function cookieSave()
     let minutes = 20;
     let date = new Date();
     date.setTime(date.getTime() + (minutes*60*1000));
-    document.cookie = "fName=" + fName + ",lName=" + lName + ",userId=" + userId + ";expires=" + date.toGMTString();
+    let expires = "; expires=" + date.toGMTString();
+    document.cookie = "fName=" + fName + expires;
+    document.cookie = "lName=" + lName + expires;
+    document.cookie = "userId=" + userId + expires;
 }
 
 function readCookie()
 {
 	userId = -1;
 	let data = document.cookie;
-	let splits = data.split(",");
+	let splits = data.split(";");
 
 	for(var i = 0; i < splits.length; i++) 
 	{

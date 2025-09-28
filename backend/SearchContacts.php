@@ -6,6 +6,14 @@ error_reporting(0);
 
 $inData = getRequestInfo();
 
+// TEMP DEBUG - remove after fixing
+file_put_contents('/tmp/contact_debug.log', print_r([
+  'method'=>$_SERVER['REQUEST_METHOD'],
+  'content_type'=>$_SERVER['CONTENT_TYPE'] ?? '',
+  'GET'=>$_GET, 'POST'=>$_POST,
+  'raw'=>file_get_contents('php://input'),
+  'parsed'=>$inData
+], true)."\n", FILE_APPEND);
 
 if (!isset($inData["userId"])) {
     returnWithError("userId is required");
@@ -57,8 +65,8 @@ while($row = $result->fetch_assoc()) {
 }
 
 if ($searchCount == 0) {
-    if (empty(trim($inData["search"]))) {
-        returnWithError("No contacts found for user " . $inData["userId"]);
+    if ($isEmptySearch) {
+        returnWithError("No contacts found for user ".$inData["userId"]);
     } else {
         returnWithError("No Records Found");
     }
@@ -71,16 +79,22 @@ $conn->close();
 
 function getRequestInfo()
 {
-    // Try JSON body first
-    $inputData = file_get_contents('php://input');
-    if ($inputData) {
-        $data = json_decode($inputData, true);
-        if (is_array($data)) return $data;
+    // 1) JSON body
+    $raw = file_get_contents('php://input');
+    if ($raw !== false && $raw !== '') {
+        $data = json_decode($raw, true);
+        if (json_last_error() === JSON_ERROR_NONE && is_array($data)) {
+            return $data;
+        }
+        // also handle x-www-form-urlencoded body sent without $_POST
+        parse_str($raw, $out);
+        if (!empty($out)) return $out;
     }
-    // Fallback to query params (GET) if no JSON body
+    // 2) Form POST
+    if (!empty($_POST)) return $_POST;
+    // 3) GET query
     if (!empty($_GET)) return $_GET;
 
-    // Default empty array so we can set defaults downstream
     return [];
 }
 
@@ -92,14 +106,16 @@ function sendResultInfoAsJson($obj)
 
 function returnWithError($err)
 {
-    $retValue = '{"results":[],"error":"' . $err . '"}';
-    sendResultInfoAsJson($retValue);
+    header('Content-type: application/json');
+    echo json_encode(["results"=>[], "error"=>$err]);
+    exit();
 }
 
 function returnWithInfo($searchResults)
 {
-    $retValue = '{"results":[' . $searchResults . '],"error":""}';
-    sendResultInfoAsJson($retValue);
+    header('Content-type: application/json');
+    echo '{"results":[' . $searchResults . '],"error":""}';
+    exit();
 }
 	
 ?>

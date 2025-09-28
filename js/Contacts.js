@@ -25,7 +25,7 @@ function readCookie()
 {
 	userId = -1;
 	let data = document.cookie;
-	let splits = data.split(",");
+	let splits = data.split(";");
 
 	for(var i = 0; i < splits.length; i++) 
 	{
@@ -405,6 +405,12 @@ try
 
 function LoadAllContacts()
 {
+    // Ensure userId is valid before proceeding
+    if (!userId || userId < 0) {
+        console.error("Invalid userId:", userId);
+        return;
+    }
+    
     const SearchData = {
         userId,
         search: ""  // Empty search to get all contacts
