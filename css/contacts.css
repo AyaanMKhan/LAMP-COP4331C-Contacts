@@ -296,8 +296,10 @@ body {
 
 .EDIT::before {
     content: '✏️';
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Android Emoji', 'EmojiSymbols', sans-serif;
+    line-height: 1;
 }
 
 .DELETE {
@@ -311,8 +313,10 @@ body {
 
 .DELETE::before {
     content: '🗑️';
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Android Emoji', 'EmojiSymbols', sans-serif;
+    line-height: 1;
 }
 
 .EDIT:hover, .DELETE:hover {
