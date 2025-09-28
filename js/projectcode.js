@@ -8,9 +8,6 @@ let userId = 0;
 let fName = '';
 let lName = '';
 
-let warningImg = document.createElement('img');
-warningImg.src = 'css/warning-sign-30915_1280.png';
-warningImg.id = 'warningImg';
 
 //Sets stored values to nothing
 function refreshValues()
@@ -58,7 +55,6 @@ function login()
                 {
                     document.getElementById("loginErr").innerHTML = error;
                     document.getElementById("loginErr").style.visibility = "visible";
-                    document.getElementById("loginErr").appendChild(warningImg);
                     return;
                 }
 
@@ -93,7 +89,6 @@ function logout()
 function setInvalid(id)
 {
     id.style.background = "rgba(252, 180, 180, 1)";
-    id.style.backgroundImage = "url('css/warning-sign-30915_1280.png')";
     id.style.backgroundSize = "contain";
     id.style.backgroundRepeat = "no-repeat";
     id.style.backgroundPosition = "right";
@@ -126,6 +121,31 @@ function clearError()
     }
 }
 
+// New validation functions that only validate without changing colors
+function validateEmptyCheck(field)
+{
+    if (field.value.trim() == "")
+    {
+        field.dataset.valid = "0";
+        return false;
+    }
+    else
+    {
+        field.dataset.valid = "1";
+        return true;
+    }
+}
+
+function validateEmailCheck(email)
+{
+    let login = email.value;
+    if (login.match(emailRegEx) == login)
+    {
+        return true;
+    }
+    return false;
+}
+
 function emailCheck(email)
 {
     let login = email.value;
@@ -153,21 +173,53 @@ function register()
     let login = document.getElementById("regEmail").value;
     let password = document.getElementById("regPassword").value;
 
-    let finalCheck = [document.getElementById("firstName"), document.getElementById("lastName"),
-        document.getElementById("regPassword")]
+    let firstNameField = document.getElementById("firstName");
+    let lastNameField = document.getElementById("lastName");
+    let passwordField = document.getElementById("regPassword");
+    let emailField = document.getElementById("regEmail");
 
     //let hash = md5(password);
     document.getElementById("regErr").innerHTML = "";
 
-    for (i = 0; i < 3; i++)
-    {
-        emptyCheck(finalCheck[i]);
+    // First validate all fields without showing colors
+    let isValid = true;
+    
+    // Validate required fields
+    if (!validateEmptyCheck(firstNameField)) {
+        setInvalid(firstNameField);
+        document.getElementById("emptyField").style.visibility = "visible";
+        isValid = false;
+    } else {
+        setValid(firstNameField);
+    }
+    
+    if (!validateEmptyCheck(lastNameField)) {
+        setInvalid(lastNameField);
+        document.getElementById("emptyField").style.visibility = "visible";
+        isValid = false;
+    } else {
+        setValid(lastNameField);
+    }
+    
+    if (!validateEmptyCheck(passwordField)) {
+        setInvalid(passwordField);
+        document.getElementById("emptyField").style.visibility = "visible";
+        isValid = false;
+    } else {
+        setValid(passwordField);
+    }
+    
+    // Validate email
+    if (!validateEmailCheck(emailField)) {
+        setInvalid(emailField);
+        document.getElementById("invalidEmail").style.visibility = "visible";
+        isValid = false;
+    } else {
+        setValid(emailField);
+        document.getElementById("invalidEmail").style.visibility = "hidden";
     }
 
-    emailCheck(document.getElementById("regEmail"));
-
-    if(document.getElementById("invalidEmail").style.visibility == "visible" || document.getElementById("emptyField").style.visibility == "visible")
-    {
+    if (!isValid) {
         return;
     }
 
@@ -190,7 +242,6 @@ function register()
                 if (jsonObject.error !== "")
                 {
                     document.getElementById("regErr").innerHTML = jsonObject.error;
-                    document.getElementById("regErr").appendChild(warningImg);
                     return;
                 } 
 

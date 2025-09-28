@@ -161,6 +161,8 @@ try
 function CreateContact(Contact,ContactId)
 {
 const ContactTab = document.createElement("div");
+const ContactInfoContainer = document.createElement("div");
+const ButtonContainer = document.createElement("div");
 const Contactname = document.createElement("p");
 const ContactEmail = document.createElement("p");
 const ContactPhone = document.createElement("p");
@@ -171,6 +173,12 @@ ContactTab.style.visibility = "hidden";
 
 ContactTab.className = "ContactTab";
 ContactTab.id = ContactId;
+
+// Create contact info container
+ContactInfoContainer.style.display = "flex";
+ContactInfoContainer.style.flex = "1";
+ContactInfoContainer.style.gap = "20px";
+ContactInfoContainer.style.alignItems = "center";
 
 Contactname.className = "Contact_Name";
 Contactname.readOnly = true;
@@ -184,16 +192,28 @@ ContactPhone.className = "Contact_Phone";
 ContactPhone.readOnly = true;
 ContactPhone.innerText = Contact.phone;
 
+// Create button container
+ButtonContainer.style.display = "flex";
+ButtonContainer.style.gap = "10px";
+ButtonContainer.style.alignItems = "center";
+
 EditBut.className = "EDIT";
-DeleteBut.className =  "DELETE";
+DeleteBut.className = "DELETE";
 
 EditBut.onclick = () => Edit(ContactId, Contact);
 DeleteBut.onclick = () => DeleteCont(ContactTab,ContactId);
-ContactTab.appendChild(Contactname);
-ContactTab.appendChild(ContactEmail);
-ContactTab.appendChild(ContactPhone);
-ContactTab.appendChild(EditBut);
-ContactTab.appendChild(DeleteBut);
+
+// Assemble the structure
+ContactInfoContainer.appendChild(Contactname);
+ContactInfoContainer.appendChild(ContactEmail);
+ContactInfoContainer.appendChild(ContactPhone);
+
+ButtonContainer.appendChild(EditBut);
+ButtonContainer.appendChild(DeleteBut);
+
+ContactTab.appendChild(ContactInfoContainer);
+ContactTab.appendChild(ButtonContainer);
+
 document.getElementById("SearchList").appendChild(ContactTab);
 }
 
