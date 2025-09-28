@@ -12,16 +12,8 @@ body {
     padding: 0;
     font-family: 'Press Start 2P', monospace;
     background: linear-gradient(45deg, #0a0a0a, #1a0a2e, #16213e, #0f3460);
-    background-size: 400% 400%;
-    animation: gradientShift 8s ease infinite;
     color: #00ff00;
     overflow-x: hidden;
-}
-
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 
 /* Arcade Cabinet Glow Effect */
@@ -117,11 +109,11 @@ body {
 }
 
 #Search {
-    background: linear-gradient(45deg, #00ff00, #32cd32);
-    border-color: #00ff00;
+    background: linear-gradient(45deg, #00ffff, #0080ff);
+    border-color: #00ffff;
     color: #000;
     box-shadow: 
-        0 0 20px #00ff00,
+        0 0 20px #00ffff,
         inset 0 0 20px rgba(255, 255, 255, 0.2);
     text-shadow: 0 0 5px #000;
 }
@@ -219,28 +211,7 @@ body {
     min-height: 80px;
 }
 
-.ContactTab::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.ContactTab:hover::before {
-    left: 100%;
-}
-
-.ContactTab:hover {
-    transform: translateX(10px) scale(1.02);
-    border-color: #ffff00;
-    box-shadow: 
-        0 0 25px #ffff00,
-        inset 0 0 25px rgba(255, 255, 0, 0.1);
-}
+/* Removed hover effects for individual contacts */
 
 /* Contact Information Container */
 .ContactTab > div:first-child {
@@ -294,12 +265,7 @@ body {
     align-items: center;
 }
 
-.ContactTab:hover .Contact_Name,
-.ContactTab:hover .Contact_Email,
-.ContactTab:hover .Contact_Phone {
-    text-shadow: 0 0 15px currentColor;
-    transform: scale(1.05);
-}
+/* Removed hover effects for contact information */
 
 /* Action Buttons - Arcade Style */
 .EDIT, .DELETE {
@@ -329,8 +295,9 @@ body {
 }
 
 .EDIT::before {
-    content: '✏️';
-    font-size: 16px;
+    content: '✎';
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .DELETE {
@@ -343,13 +310,13 @@ body {
 }
 
 .DELETE::before {
-    content: '🗑️';
-    font-size: 16px;
+    content: '✕';
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .EDIT:hover, .DELETE:hover {
-    transform: scale(1.15) translateY(-2px);
-    animation: buttonPulse 0.3s ease-in-out infinite alternate;
+    transform: scale(1.05);
 }
 
 .EDIT:hover {
@@ -366,16 +333,13 @@ body {
         0 5px 15px rgba(255, 0, 102, 0.4);
 }
 
-@keyframes buttonPulse {
-    from { filter: brightness(1); }
-    to { filter: brightness(1.5); }
-}
+/* Removed button pulse animation */
 
 /* Popup Modals - Retro Arcade Cabinets */
 #ContactPopupMake, #ContactPopupEdit {
     background: 
-        linear-gradient(135deg, rgba(255, 0, 255, 0.9), rgba(0, 255, 255, 0.9)),
-        linear-gradient(45deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8));
+        linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.9)),
+        linear-gradient(45deg, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.85));
     border: 4px solid #00ffff;
     border-radius: 20px;
     box-shadow: 
@@ -385,36 +349,49 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60%;
-    max-width: 600px;
-    padding: 40px;
+    width: 70%;
+    max-width: 700px;
+    padding: 50px;
     z-index: 1000;
     font-family: 'Press Start 2P', monospace;
+    display: none;
+    visibility: hidden;
+    color: #ffffff;
 }
 
 /* Overlay Background */
 #overlayBG {
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
+    display: none;
+    visibility: hidden;
 }
 
 /* Form Inputs - Terminal Style */
 #PopNameF, #PopNameL, #PopEmail, #PopPhone,
 #EPopNameF, #EPopNameL, #EPopEmail, #EPopPhone {
     font-family: 'Orbitron', monospace;
-    font-size: 14px;
-    padding: 15px 20px;
-    margin: 15px 0;
-    border: 2px solid #00ff00;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.8);
-    color: #00ff00;
+    font-size: 16px;
+    padding: 20px 25px;
+    margin: 20px 0;
+    border: 3px solid #00ffff;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #ffffff;
     box-shadow: 
-        0 0 15px #00ff00,
-        inset 0 0 15px rgba(0, 255, 0, 0.1);
-    text-shadow: 0 0 5px #00ff00;
+        0 0 20px #00ffff,
+        inset 0 0 20px rgba(0, 255, 255, 0.1);
+    text-shadow: 0 0 5px #ffffff;
     transition: all 0.3s ease;
     width: 100%;
+    box-sizing: border-box;
+}
+
+#PopNameF::placeholder, #PopNameL::placeholder, #PopEmail::placeholder, #PopPhone::placeholder,
+#EPopNameF::placeholder, #EPopNameL::placeholder, #EPopEmail::placeholder, #EPopPhone::placeholder {
+    color: #888888;
+    opacity: 0.8;
+    text-shadow: 0 0 3px #888888;
 }
 
 #PopNameF:focus, #PopNameL:focus, #PopEmail:focus, #PopPhone:focus,
@@ -422,31 +399,34 @@ body {
     outline: none;
     border-color: #ffff00;
     box-shadow: 
-        0 0 25px #ffff00,
-        inset 0 0 25px rgba(255, 255, 0, 0.1);
-    text-shadow: 0 0 10px #ffff00;
+        0 0 30px #ffff00,
+        inset 0 0 30px rgba(255, 255, 0, 0.1);
+    text-shadow: 0 0 10px #ffffff;
 }
 
 /* Modal Buttons */
 #ContactMake, #ContactEdit {
     font-family: 'Press Start 2P', monospace;
-    font-size: 12px;
-    padding: 15px 30px;
+    font-size: 14px;
+    padding: 20px 40px;
     border: 3px solid #ffff00;
     border-radius: 25px;
     background: linear-gradient(45deg, #ffff00, #ffd700);
     color: #000;
     cursor: pointer;
-    margin: 20px 10px;
+    margin: 25px 10px;
     text-shadow: 0 0 5px #000;
     box-shadow: 
-        0 0 20px #ffff00,
-        inset 0 0 20px rgba(255, 255, 255, 0.2);
+        0 0 25px #ffff00,
+        inset 0 0 25px rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #ContactMake:hover, #ContactEdit:hover {
-    transform: translateY(-3px) scale(1.05);
+    transform: scale(1.02);
     box-shadow: 
         0 0 30px #ffff00,
         inset 0 0 30px rgba(255, 255, 255, 0.3);
@@ -562,85 +542,7 @@ body {
     }
 }
 
-/* High Score Table Effect */
-.high-score {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 255, 0, 0.2));
-    border: 2px solid #ffd700;
-    box-shadow: 0 0 20px #ffd700;
-    animation: scoreGlow 1s ease-in-out infinite alternate;
-}
-
-@keyframes scoreGlow {
-    from { box-shadow: 0 0 20px #ffd700; }
-    to { box-shadow: 0 0 30px #ffd700, inset 0 0 20px rgba(255, 215, 0, 0.1); }
-}
-
-/* Coin Insert Effect */
-.coin-effect {
-    position: relative;
-    overflow: hidden;
-}
-
-.coin-effect::after {
-    content: '💰';
-    position: absolute;
-    top: -50px;
-    right: 20px;
-    font-size: 24px;
-    animation: coinDrop 2s ease-in-out infinite;
-}
-
-@keyframes coinDrop {
-    0% { 
-        transform: translateY(-50px) rotate(0deg);
-        opacity: 0;
-    }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { 
-        transform: translateY(100px) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-/* Power-Up Effect */
-.power-up {
-    background: linear-gradient(45deg, #ff0066, #00ffff, #ffff00, #ff0066);
-    background-size: 400% 400%;
-    animation: powerUpGradient 1s ease infinite;
-}
-
-@keyframes powerUpGradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Game Over Effect */
-.game-over {
-    animation: gameOverShake 0.5s ease-in-out infinite;
-    color: #ff0066;
-    text-shadow: 0 0 20px #ff0066;
-}
-
-@keyframes gameOverShake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
-/* Level Complete Effect */
-.level-complete {
-    animation: levelComplete 1s ease-in-out;
-    color: #00ff00;
-    text-shadow: 0 0 20px #00ff00;
-}
-
-@keyframes levelComplete {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
+/* Removed excessive animations - keeping colors simple */
 
 /* Responsive Design for Mobile */
 @media (max-width: 768px) {

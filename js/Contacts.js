@@ -58,6 +58,7 @@ function logout()
 //Made edit to create overlay effect instead of a visibility toggle - Jean
 function CreateContactPop()
 {
+    // Make sure popup is properly shown
     document.getElementById("ContactPopupMake").style.display = "flex";
     document.getElementById("ContactPopupMake").style.visibility = "visible";
     document.getElementById("overlayBG").style.display = "block";
@@ -76,23 +77,22 @@ function EditContactPop()
 function exitContactPop()
 {
     document.getElementById("ContactPopupMake").style.display = "none";
-    document.getElementById("ContactPopupMake").style.visibility = "none";
+    document.getElementById("ContactPopupMake").style.visibility = "hidden";
     document.getElementById("overlayBG").style.display = "none";
-    document.getElementById("overlayBG").style.visibility = "none";
+    document.getElementById("overlayBG").style.visibility = "hidden";
 
     document.getElementById("PopNameF").value = "";
     document.getElementById("PopNameL").value = "";
     document.getElementById("PopEmail").value = "";
     document.getElementById("PopPhone").value = "";
-
 }
 
 function exitEditContactPop()
 {
     document.getElementById("ContactPopupEdit").style.display = "none";
-    document.getElementById("ContactPopupEdit").style.visibility = "none";
+    document.getElementById("ContactPopupEdit").style.visibility = "hidden";
     document.getElementById("overlayBG").style.display = "none";
-    document.getElementById("overlayBG").style.visibility = "none";
+    document.getElementById("overlayBG").style.visibility = "hidden";
 
     document.getElementById("EPopNameF").value = "";
     document.getElementById("EPopNameL").value = "";
@@ -361,35 +361,54 @@ try
                     return;
                 } 
                 
-                // First hide all contacts
+                // First hide all contacts and remove any existing no results message
                 const allContacts = document.querySelectorAll('.ContactTab');
                 allContacts.forEach(contact => {
                     contact.style.visibility = "hidden";
                 });
                 
-                // Then show only matching contacts
-                jsonObject.results.forEach(contact => {
-                    let ContactFound = document.getElementById(contact.id);
-                    if(ContactFound){
-                        ContactFound.style.visibility = "visible";
-                    }
-                    else{
-                        const FoundCont = {
-                            userId,
-                            contactId: contact.id,
-                            firstName: contact.firstName,
-                            lastName: contact.lastName,
-                            email: contact.email,
-                            phone: contact.phone
-                        };
-
-                        CreateContact(FoundCont,contact.id);
+                // Remove any existing no results message
+                const existingNoResults = document.getElementById("noResultsMessage");
+                if (existingNoResults) {
+                    existingNoResults.remove();
+                }
+                
+                // Check if there are search results
+                if (jsonObject.results.length === 0) {
+                    // Show "no results" message
+                    const noResultsDiv = document.createElement("div");
+                    noResultsDiv.id = "noResultsMessage";
+                    noResultsDiv.innerHTML = `
+                        <div style="text-align: center; padding: 60px 20px; color: #888888; font-family: 'Press Start 2P', monospace; font-size: 14px; line-height: 1.6;">
+                            <div style="margin-bottom: 20px; font-size: 48px;">🔍</div>
+                            <div>NO CONTACTS FOUND</div>
+                            <div style="margin-top: 10px; font-size: 10px; opacity: 0.7;">Try a different search term</div>
+                        </div>
+                    `;
+                    document.getElementById("SearchList").appendChild(noResultsDiv);
+                } else {
+                    // Then show only matching contacts
+                    jsonObject.results.forEach(contact => {
                         let ContactFound = document.getElementById(contact.id);
-                        ContactFound.style.visibility = "visible";
-                    }
-                    
-                    
-                });
+                        if(ContactFound){
+                            ContactFound.style.visibility = "visible";
+                        }
+                        else{
+                            const FoundCont = {
+                                userId,
+                                contactId: contact.id,
+                                firstName: contact.firstName,
+                                lastName: contact.lastName,
+                                email: contact.email,
+                                phone: contact.phone
+                            };
+
+                            CreateContact(FoundCont,contact.id);
+                            let ContactFound = document.getElementById(contact.id);
+                            ContactFound.style.visibility = "visible";
+                        }
+                    });
+                }
                 
                 ReArrainge();
             }
@@ -437,27 +456,42 @@ function LoadAllContacts()
                     return;
                 } 
                 
-                // Clear existing contacts
+                // Clear existing contacts and messages
                 document.getElementById("SearchList").innerHTML = "";
                 
-                // Load all contacts
-                jsonObject.results.forEach((contact, index) => {
-                    const FoundCont = {
-                        userId: currentUserId,
-                        contactId: contact.id,
-                        firstName: contact.firstName,
-                        lastName: contact.lastName,
-                        email: contact.email,
-                        phone: contact.phone
-                    };
-                    CreateContact(FoundCont, contact.id);
-                    
-                    // Make the contact visible (it's created as hidden by default)
-                    let ContactFound = document.getElementById(contact.id);
-                    if (ContactFound) {
-                        ContactFound.style.visibility = "visible";
-                    }
-                });
+                // Check if there are any contacts
+                if (jsonObject.results.length === 0) {
+                    // Show "no contacts" message
+                    const noContactsDiv = document.createElement("div");
+                    noContactsDiv.id = "noContactsMessage";
+                    noContactsDiv.innerHTML = `
+                        <div style="text-align: center; padding: 60px 20px; color: #888888; font-family: 'Press Start 2P', monospace; font-size: 14px; line-height: 1.6;">
+                            <div style="margin-bottom: 20px; font-size: 48px;">📇</div>
+                            <div>NO CONTACTS CREATED YET</div>
+                            <div style="margin-top: 10px; font-size: 10px; opacity: 0.7;">Click "CREATE CONTACT" to add your first contact</div>
+                        </div>
+                    `;
+                    document.getElementById("SearchList").appendChild(noContactsDiv);
+                } else {
+                    // Load all contacts
+                    jsonObject.results.forEach((contact, index) => {
+                        const FoundCont = {
+                            userId: currentUserId,
+                            contactId: contact.id,
+                            firstName: contact.firstName,
+                            lastName: contact.lastName,
+                            email: contact.email,
+                            phone: contact.phone
+                        };
+                        CreateContact(FoundCont, contact.id);
+                        
+                        // Make the contact visible (it's created as hidden by default)
+                        let ContactFound = document.getElementById(contact.id);
+                        if (ContactFound) {
+                            ContactFound.style.visibility = "visible";
+                        }
+                    });
+                }
             }
         };
         xhr.send(jsonPayload);

@@ -13,8 +13,6 @@
         radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.4) 0%, transparent 50%),
         radial-gradient(circle at 40% 80%, rgba(255, 255, 0, 0.4) 0%, transparent 50%),
         linear-gradient(45deg, #0a0a0a, #1a0a2e, #16213e, #0f3460);
-    background-size: 400% 400%;
-    animation: gradientShift 8s ease infinite;
     min-height: 100vh;
     margin: 0;
     padding: 0;
@@ -23,11 +21,7 @@
     overflow-x: hidden;
 }
 
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+/* Removed gradient shift animation */
 
 /* Main Container - Arcade Cabinet */
 #fieldDiv {
@@ -63,24 +57,7 @@
         0 0 30px #ffff00;
     margin: 30px 0;
     letter-spacing: 3px;
-    animation: titleGlow 2s ease-in-out infinite alternate;
     position: relative;
-}
-
-@keyframes titleGlow {
-    from { 
-        text-shadow: 
-            0 0 10px #ffff00,
-            0 0 20px #ffff00,
-            0 0 30px #ffff00;
-    }
-    to { 
-        text-shadow: 
-            0 0 20px #ffff00,
-            0 0 30px #ffff00,
-            0 0 40px #ffff00,
-            0 0 50px #ff0066;
-    }
 }
 
 
@@ -324,32 +301,6 @@
     z-index: -1;
 }
 
-/* Glitch Effect */
-@keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
-}
+/* Removed glitch effect animation */
 
-.glitch {
-    animation: glitch 0.3s ease-in-out infinite;
-    color: #ff0066;
-    text-shadow: 
-        2px 0 #00ffff,
-        -2px 0 #ffff00;
-}
-
-/* Loading Animation */
-.loading {
-    animation: loadingDots 1s ease-in-out infinite;
-}
-
-@keyframes loadingDots {
-    0%, 20% { color: #00ff00; text-shadow: 0 0 5px #00ff00; }
-    40% { color: #ffff00; text-shadow: 0 0 5px #ffff00; }
-    60% { color: #00ffff; text-shadow: 0 0 5px #00ffff; }
-    80%, 100% { color: #ff0066; text-shadow: 0 0 5px #ff0066; }
-}
+/* Removed loading animation */
