@@ -202,6 +202,7 @@ function register()
         setValid(firstNameField);
         document.getElementById("emptyField").style.visibility = "hidden";
         document.getElementById("invalidPassword").style.visibility = "hidden";
+        document.getElementById("invalidEmail").style.visibility = "hidden";
     }
     
     if (!validateEmptyCheck(lastNameField)) {
@@ -212,6 +213,7 @@ function register()
         setValid(lastNameField);
         document.getElementById("emptyField").style.visibility = "hidden";
         document.getElementById("invalidPassword").style.visibility = "hidden";
+        document.getElementById("invalidEmail").style.visibility = "hidden";
     }
     
     if (!validateEmptyCheck(passwordField)) {
@@ -226,6 +228,7 @@ function register()
         setValid(passwordField);
         document.getElementById("emptyField").style.visibility = "hidden";
         document.getElementById("invalidPassword").style.visibility = "hidden";
+        document.getElementById("invalidEmail").style.visibility = "hidden";
     }
     
     // Validate email
@@ -237,6 +240,7 @@ function register()
         setValid(emailField);
         document.getElementById("invalidEmail").style.visibility = "hidden";
         document.getElementById("invalidPassword").style.visibility = "hidden";
+        document.getElementById("emptyField").style.visibility = "hidden";
     }
 
     if (!isValid) {
