@@ -1,8 +1,8 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(0);
 
 $inData = getRequestInfo();
 
@@ -23,7 +23,7 @@ if ($conn->connect_error) {
 
 // Check if search is empty or blank
 $searchTerm = trim($inData["search"]);
-if (empty($searchTerm)) {
+if (empty($searchTerm) || $searchTerm === "") {
     // Return all contacts for this user
     $stmt = $conn->prepare("SELECT Id, first_name, last_name, email, phone FROM Contacts WHERE userId=?");
     if (!$stmt) {
@@ -58,7 +58,12 @@ while($row = $result->fetch_assoc()) {
 }
 
 if ($searchCount == 0) {
-    returnWithError("No Records Found");
+    // Debug: Check if this is an empty search
+    if (empty(trim($inData["search"]))) {
+        returnWithError("No contacts found for user " . $inData["userId"]);
+    } else {
+        returnWithError("No Records Found");
+    }
 } else {
     returnWithInfo($searchResults);
 }
