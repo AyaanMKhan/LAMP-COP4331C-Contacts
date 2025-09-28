@@ -135,13 +135,12 @@ try
 
                 if (jsonObject.error !== "")
                 {
-                    document.getElementById("ErrorText").innerHTML = jsonObject.error;
                     return;
                 } 
 
-                let ContactId = jsonObject.id;
-                CreateContact(NewContact,ContactId);
+                // Close popup and refresh page to show new contact
                 document.getElementById("ContactPopupMake").style.visibility = "hidden";
+                window.location.reload();
         
             }
         };
@@ -151,7 +150,7 @@ try
 
     catch(err)
     {
-        document.getElementById("ErrorText").innerHTML = err.message;
+        // Silent error handling
     }
 
     exitContactPop();
@@ -222,11 +221,11 @@ try
 
                 if (jsonObject.error !== "")
                 {
-                    document.getElementById("ErrorText").innerHTML = jsonObject.error;
                     return;
                 } 
 
-                ContactTab.remove();
+                // Refresh page to ensure clean state
+                window.location.reload();
         
             }
         };
@@ -236,7 +235,7 @@ try
 
     catch(err)
     {
-        document.getElementById("ErrorText").innerHTML = err.message;
+        // Silent error handling
     }
 }
 
@@ -269,24 +268,14 @@ try
 
                 if (jsonObject.error !== "")
                 {
-                    document.getElementById("ErrorText").innerHTML = jsonObject.error;
                     return;
                 } 
 
+                // Close popup and refresh page to show updated contact
                 document.getElementById("ContactPopupEdit").style.visibility = "hidden";
-                let temp = document.getElementById(ContactEdited);
-                let newname = temp.querySelector(".Contact_Name");
-                let newemail = temp.querySelector(".Contact_Email");
-                let newphone = temp.querySelector(".Contact_Phone");
-                let F = document.getElementById("EPopNameF").value;
-                let L = document.getElementById("EPopNameL").value;
-                let E = document.getElementById("EPopEmail").value;
-                let P = document.getElementById("EPopPhone").value;
-                newname.value = F + " " + L;
-                newemail.value = E;
-                newphone.value = P;
                 exitEditContactPop();
                 ContactEdited = null;
+                window.location.reload();
         
             }
         };
@@ -296,7 +285,7 @@ try
 
     catch(err)
     {
-        document.getElementById("ErrorText").innerHTML = err.message;
+        // Silent error handling
     }
     
 }
@@ -349,9 +338,16 @@ try
 
                 if (jsonObject.error !== "")
                 {
-                    document.getElementById("ErrorText").innerHTML = jsonObject.error;
                     return;
                 } 
+                
+                // First hide all contacts
+                const allContacts = document.querySelectorAll('.ContactTab');
+                allContacts.forEach(contact => {
+                    contact.style.visibility = "hidden";
+                });
+                
+                // Then show only matching contacts
                 jsonObject.results.forEach(contact => {
                     let ContactFound = document.getElementById(contact.id);
                     if(ContactFound){
@@ -384,7 +380,7 @@ try
 
     catch(err)
     {
-        document.getElementById("ErrorText").innerHTML = err.message;
+        // Silent error handling
     }
 
 }
@@ -418,7 +414,6 @@ function LoadAllContacts()
                 let jsonObject = JSON.parse(xhr.responseText);
 
                 if (jsonObject.error !== "") {
-                    document.getElementById("ErrorText").innerHTML = jsonObject.error;
                     return;
                 } 
                 
@@ -447,7 +442,7 @@ function LoadAllContacts()
         };
         xhr.send(jsonPayload);
     } catch(err) {
-        document.getElementById("ErrorText").innerHTML = err.message;
+        // Silent error handling
     }
 }
 

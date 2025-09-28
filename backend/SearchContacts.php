@@ -73,11 +73,8 @@ while($row = $result->fetch_assoc()) {
 }
 
 if ($searchCount == 0) {
-    if ($isEmptySearch) {
-        returnWithError("No contacts found for user ".$inData["userId"]);
-    } else {
-        returnWithError("No Records Found");
-    }
+    // Return empty results array instead of error
+    returnWithInfo("");
 } else {
     returnWithInfo($searchResults);
 }
