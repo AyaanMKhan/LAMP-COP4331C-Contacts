@@ -411,6 +411,9 @@ function LoadAllContacts()
     };
 
     let jsonPayload = JSON.stringify(SearchData);
+    console.log("Sending data:", jsonPayload);
+    console.log("userId:", userId);
+    
     let url = urlBase + '/SearchContacts.php';
     let xhr = new XMLHttpRequest();
 

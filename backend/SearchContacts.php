@@ -6,13 +6,13 @@ error_reporting(0);
 
 $inData = getRequestInfo();
 
-// Validate required fields
-if (!isset($inData["userId"])) {
-    returnWithError("userId is required");
+// If no input data received, return error for userId
+if (empty($inData) || !isset($inData["userId"]) || $inData["userId"] <= 0) {
+    returnWithError("Valid userId is required");
     exit();
 }
 
-// Set default empty search if not provided
+
 if (!isset($inData["search"])) {
     $inData["search"] = "";
 }
@@ -26,10 +26,10 @@ if ($conn->connect_error) {
     exit();
 }
 
-// Check if search is empty or blank
+
 $searchTerm = trim($inData["search"]);
 if (empty($searchTerm) || $searchTerm === "") {
-    // Return all contacts for this user
+   
     $stmt = $conn->prepare("SELECT Id, first_name, last_name, email, phone FROM Contacts WHERE userId=?");
     if (!$stmt) {
         returnWithError($conn->error);
@@ -37,7 +37,7 @@ if (empty($searchTerm) || $searchTerm === "") {
     }
     $stmt->bind_param("i", $inData["userId"]);
 } else {
-    // Search by first name or last name
+    
     $stmt = $conn->prepare("SELECT Id, first_name, last_name, email, phone FROM Contacts WHERE userId=? AND (first_name LIKE ? OR last_name LIKE ?)");
     if (!$stmt) {
         returnWithError($conn->error);
@@ -63,7 +63,6 @@ while($row = $result->fetch_assoc()) {
 }
 
 if ($searchCount == 0) {
-    // Debug: Check if this is an empty search
     if (empty(trim($inData["search"]))) {
         returnWithError("No contacts found for user " . $inData["userId"]);
     } else {
@@ -82,8 +81,7 @@ function getRequestInfo()
     if ($inputData) {
         return json_decode($inputData, true);
     } else {
-        returnWithError("No input received");
-        exit();
+        return array();
     }
 }
 
