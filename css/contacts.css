@@ -179,6 +179,20 @@ border-radius: 16px;
     font-size: 14pt;
 }
 
+#ContactEdit
+{
+    height: 65px;
+    width: 12%;
+    border-radius: 20px;
+    border-width: 5px;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(239, 132, 10);
+    border-color: rgb(52, 100, 109);
+    font-weight: bold;
+    font-size: 14pt;
+}
+
 #SearchCon
 {
     font-family: Arial, sans-serif;
@@ -241,6 +255,19 @@ border-radius: 16px;
 }
 
 #PopNameF, #PopNameL, #PopEmail, #PopPhone
+{
+    border-radius: 7px;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    height: 7%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 35%;
+    margin-right: 35%;
+    width: 30%;
+}
+
+#EPopNameF, #EPopNameL, #EPopEmail, #EPopPhone
 {
     border-radius: 7px;
     font-family: Arial, sans-serif;
