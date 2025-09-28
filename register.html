@@ -15,22 +15,18 @@
         <div id = "fieldDiv">
             <h1 id = "head">Register</h1>
             <h2 id="instruct">Please fill out all fields below.</h2>
-            <span id="emptyField" class = "error">Do not leave any fields empty.
-                <img src = 'css/warning-sign-30915_1280.png' class = "warningImg"></img>
-            </span><br>
-            <span id="invalidEmail" class = "error">The email you entered is invalid. Please enter a valid email.
-                <img src = 'css/warning-sign-30915_1280.png' class = "warningImg"></img>
-            </span>
+            <span id="emptyField" class = "error" tabindex="-1"></span><br>
+            <span id="invalidEmail" class = "error" tabindex="-1"></span>
             <span id="regErr" class ="error" tabindex="-1"></span><br>
 
             <label for ="firstName" class="fieldLabel">First Name</label>
-            <input type="text" id="firstName" class = "field" data-valid="1" onblur="emptyCheck(firstName); clearError();">
+            <input type="text" id="firstName" class = "field" data-valid="0" onblur="emptyCheck(firstName); clearError();">
             <label for ="lastName" class="fieldLabel">Last Name</label>
-            <input type="text" id="lastName" class = "field" data-valid="1" onblur="emptyCheck(lastName); clearError();">
+            <input type="text" id="lastName" class = "field" data-valid="0" onblur="emptyCheck(lastName); clearError();">
             <label for ="regEmail" class="fieldLabel">Email</label>
             <input type="text" id="regEmail" class ="field" placeholder="johndoe@example.com" onblur="emailCheck(regEmail)"> <br>
             <label for ="regPassword" class="fieldLabel">Password</label>
-            <input type="password" id="regPassword" class = "field" data-valid="1" onblur="emptyCheck(regPassword); clearError();"> <br>
+            <input type="password" id="regPassword" class = "field" data-valid="0" onblur="emptyCheck(regPassword); clearError();"> <br>
             <button type="button" id ="regButton" class="button" onclick="register();">Register</button>
 
             <p id ="loginText">Returning User? <br><a href="index.html" id = "loginLink">Sign in!</a></p> 
