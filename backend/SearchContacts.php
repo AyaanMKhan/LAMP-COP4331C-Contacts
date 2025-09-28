@@ -7,9 +7,14 @@ error_reporting(0);
 $inData = getRequestInfo();
 
 // Validate required fields
-if (!isset($inData["userId"]) || !isset($inData["search"])) {
-    returnWithError("userId and search are required");
+if (!isset($inData["userId"])) {
+    returnWithError("userId is required");
     exit();
+}
+
+// Set default empty search if not provided
+if (!isset($inData["search"])) {
+    $inData["search"] = "";
 }
 
 $searchResults = "";
