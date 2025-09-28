@@ -119,10 +119,9 @@
     font-weight: bold;
     font-size: 15pt;
     text-align: center;
-    visibility: hidden;
 }
 
-.warningImg
+#warningImg
 {
     height: 20px;
     width: 20px;
