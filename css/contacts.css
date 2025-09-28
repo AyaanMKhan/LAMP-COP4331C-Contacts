@@ -293,3 +293,15 @@ background-image: linear-gradient(to bottom right, rgb(253, 233, 196) 0%, rgb(18
 {
     border: 5px outset rgb(236, 221, 0);
 }
+
+#attribution
+{
+    font-family: Arial, sans-serif;
+    font-size: 10pt;
+    margin-left: 5%;
+}
+
+ #attrLink:hover
+{
+    background-color:  rgba(236, 220, 0, 0.71);
+}
