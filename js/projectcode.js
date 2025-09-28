@@ -27,6 +27,7 @@ function login()
     let password = document.getElementById("loginPassword").value;
 
     document.getElementById("loginErr").innerHTML = "";
+    document.getElementById("loginErr").style.display = "none";
 
     let temp = {login:login, password:password};
     let jsonPayload = JSON.stringify(temp);
@@ -54,7 +55,7 @@ function login()
                 if(error !== "")
                 {
                     document.getElementById("loginErr").innerHTML = error;
-                    document.getElementById("loginErr").style.visibility = "visible";
+                    document.getElementById("loginErr").style.display = "block";
                     return;
                 }
 
@@ -75,6 +76,7 @@ function login()
     catch(err)
     {
         document.getElementById("loginErr").innerHTML = err.message;
+        document.getElementById("loginErr").style.display = "block";
     }
 
 }
