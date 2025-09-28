@@ -191,9 +191,10 @@ function register()
     document.getElementById("regErr").innerHTML = "";
 
     // Clear all error messages at the start
-    document.getElementById("emptyField").style.visibility = "hidden";
-    document.getElementById("invalidEmail").style.visibility = "hidden";
-    document.getElementById("invalidPassword").style.visibility = "hidden";
+    document.getElementById("emptyField").style.display = "none";
+    document.getElementById("invalidEmail").style.display = "none";
+    document.getElementById("invalidPassword").style.display = "none";
+    document.getElementById("duplicateEmail").style.display = "none";
 
     // First validate all fields without showing colors
     let isValid = true;
@@ -203,7 +204,7 @@ function register()
         setInvalid(firstNameField);
         setInvalid(lastNameField);
         setInvalid(passwordField);
-        document.getElementById("emptyField").style.visibility = "visible";
+        document.getElementById("emptyField").style.display = "block";
         isValid = false;
     } else {
         setValid(firstNameField);
@@ -214,7 +215,7 @@ function register()
         if (!validatePasswordCheck(passwordField)) {
             console.log("Password too short:", passwordField.value.length);
             setInvalid(passwordField);
-            document.getElementById("invalidPassword").style.visibility = "visible";
+            document.getElementById("invalidPassword").style.display = "block";
             isValid = false;
         }
     }
@@ -222,12 +223,12 @@ function register()
     // Validate email if not empty
     if (!validateEmptyCheck(emailField)) {
         setInvalid(emailField);
-        document.getElementById("emptyField").style.visibility = "visible";
+        document.getElementById("emptyField").style.display = "block";
         isValid = false;
     } else if (!validateEmailCheck(emailField)) {
         console.log("Invalid email:", emailField.value);
         setInvalid(emailField);
-        document.getElementById("invalidEmail").style.visibility = "visible";
+        document.getElementById("invalidEmail").style.display = "block";
         isValid = false;
     } else {
         setValid(emailField);
@@ -255,7 +256,14 @@ function register()
 
                 if (jsonObject.error !== "")
                 {
-                    document.getElementById("regErr").innerHTML = jsonObject.error;
+                    // Check if it's a duplicate email error
+                    if (jsonObject.error.includes("already exists") || jsonObject.error.includes("duplicate") || jsonObject.error.includes("email")) {
+                        document.getElementById("duplicateEmail").style.display = "block";
+                        setInvalid(emailField);
+                    } else {
+                        document.getElementById("regErr").innerHTML = jsonObject.error;
+                        document.getElementById("regErr").style.display = "block";
+                    }
                     return;
                 } 
 

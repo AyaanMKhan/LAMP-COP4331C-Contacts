@@ -218,8 +218,7 @@
 
 /* Error Messages - Hidden by default, shown when needed */
 .error {
-    display: block;
-    visibility: hidden;
+    display: none;
     font-family: 'Press Start 2P', monospace;
     font-size: 10px;
     color: #ff0066;
