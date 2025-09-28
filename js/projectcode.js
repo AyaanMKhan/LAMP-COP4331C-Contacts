@@ -146,6 +146,15 @@ function validateEmailCheck(email)
     return false;
 }
 
+function validatePasswordCheck(password)
+{
+    if (password.value.length >= 8)
+    {
+        return true;
+    }
+    return false;
+}
+
 function emailCheck(email)
 {
     let login = email.value;
@@ -191,6 +200,8 @@ function register()
         isValid = false;
     } else {
         setValid(firstNameField);
+        document.getElementById("emptyField").style.visibility = "hidden";
+        document.getElementById("invalidPassword").style.visibility = "hidden";
     }
     
     if (!validateEmptyCheck(lastNameField)) {
@@ -199,14 +210,22 @@ function register()
         isValid = false;
     } else {
         setValid(lastNameField);
+        document.getElementById("emptyField").style.visibility = "hidden";
+        document.getElementById("invalidPassword").style.visibility = "hidden";
     }
     
     if (!validateEmptyCheck(passwordField)) {
         setInvalid(passwordField);
         document.getElementById("emptyField").style.visibility = "visible";
         isValid = false;
+    } else if (!validatePasswordCheck(passwordField)) {
+        setInvalid(passwordField);
+        document.getElementById("invalidPassword").style.visibility = "visible";
+        isValid = false;
     } else {
         setValid(passwordField);
+        document.getElementById("emptyField").style.visibility = "hidden";
+        document.getElementById("invalidPassword").style.visibility = "hidden";
     }
     
     // Validate email
@@ -217,6 +236,7 @@ function register()
     } else {
         setValid(emailField);
         document.getElementById("invalidEmail").style.visibility = "hidden";
+        document.getElementById("invalidPassword").style.visibility = "hidden";
     }
 
     if (!isValid) {
