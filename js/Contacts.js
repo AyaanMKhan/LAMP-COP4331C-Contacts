@@ -310,6 +310,10 @@ ButtonContainer.style.alignItems = "center";
 EditBut.className = "EDIT";
 DeleteBut.className = "DELETE";
 
+// Add accessibility labels for screen readers
+EditBut.setAttribute('aria-label', 'Edit contact ' + Contact.firstName + ' ' + Contact.lastName);
+DeleteBut.setAttribute('aria-label', 'Delete contact ' + Contact.firstName + ' ' + Contact.lastName);
+
 EditBut.onclick = () => Edit(ContactId, Contact);
 DeleteBut.onclick = () => DeleteCont(ContactTab,ContactId);
 
