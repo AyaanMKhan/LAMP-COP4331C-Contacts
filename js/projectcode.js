@@ -195,43 +195,56 @@ function register()
     document.getElementById("invalidEmail").style.display = "none";
     document.getElementById("invalidPassword").style.display = "none";
     document.getElementById("duplicateEmail").style.display = "none";
+    document.getElementById("regErr").style.display = "none";
 
     // First validate all fields without showing colors
     let isValid = true;
     
-    // Validate required fields - check for empty fields first
-    if (!validateEmptyCheck(firstNameField) || !validateEmptyCheck(lastNameField) || !validateEmptyCheck(passwordField)) {
+    // Check for empty fields first
+    let hasEmptyFields = false;
+    if (!validateEmptyCheck(firstNameField)) {
         setInvalid(firstNameField);
-        setInvalid(lastNameField);
-        setInvalid(passwordField);
-        document.getElementById("emptyField").style.display = "block";
-        isValid = false;
+        hasEmptyFields = true;
     } else {
         setValid(firstNameField);
+    }
+    
+    if (!validateEmptyCheck(lastNameField)) {
+        setInvalid(lastNameField);
+        hasEmptyFields = true;
+    } else {
         setValid(lastNameField);
+    }
+    
+    if (!validateEmptyCheck(passwordField)) {
+        setInvalid(passwordField);
+        hasEmptyFields = true;
+    } else {
         setValid(passwordField);
-        
-        // Now check password length if not empty
+        // Check password length if not empty
         if (!validatePasswordCheck(passwordField)) {
-            console.log("Password too short:", passwordField.value.length);
             setInvalid(passwordField);
             document.getElementById("invalidPassword").style.display = "block";
             isValid = false;
         }
     }
     
-    // Validate email if not empty
     if (!validateEmptyCheck(emailField)) {
         setInvalid(emailField);
-        document.getElementById("emptyField").style.display = "block";
-        isValid = false;
-    } else if (!validateEmailCheck(emailField)) {
-        console.log("Invalid email:", emailField.value);
-        setInvalid(emailField);
-        document.getElementById("invalidEmail").style.display = "block";
-        isValid = false;
+        hasEmptyFields = true;
     } else {
         setValid(emailField);
+        // Check email format if not empty
+        if (!validateEmailCheck(emailField)) {
+            setInvalid(emailField);
+            document.getElementById("invalidEmail").style.display = "block";
+            isValid = false;
+        }
+    }
+    
+    if (hasEmptyFields) {
+        document.getElementById("emptyField").style.display = "block";
+        isValid = false;
     }
 
     if (!isValid) {
