@@ -21,14 +21,26 @@ if ($conn->connect_error) {
     exit();
 }
 
-$stmt = $conn->prepare("SELECT Id, first_name, last_name, email, phone FROM Contacts WHERE userId=? AND (first_name LIKE ? OR last_name LIKE ?)");
-if (!$stmt) {
-    returnWithError($conn->error);
-    exit();
+// Check if search is empty or blank
+$searchTerm = trim($inData["search"]);
+if (empty($searchTerm)) {
+    // Return all contacts for this user
+    $stmt = $conn->prepare("SELECT Id, first_name, last_name, email, phone FROM Contacts WHERE userId=?");
+    if (!$stmt) {
+        returnWithError($conn->error);
+        exit();
+    }
+    $stmt->bind_param("i", $inData["userId"]);
+} else {
+    // Search by first name or last name
+    $stmt = $conn->prepare("SELECT Id, first_name, last_name, email, phone FROM Contacts WHERE userId=? AND (first_name LIKE ? OR last_name LIKE ?)");
+    if (!$stmt) {
+        returnWithError($conn->error);
+        exit();
+    }
+    $searchTerm = "%" . $searchTerm . "%";
+    $stmt->bind_param("iss", $inData["userId"], $searchTerm, $searchTerm);
 }
-
-$searchTerm = "%" . $inData["search"] . "%";
-$stmt->bind_param("iss", $inData["userId"], $searchTerm, $searchTerm);
 
 if (!$stmt->execute()) {
     returnWithError("SQL Execution Error: " . $stmt->error);
