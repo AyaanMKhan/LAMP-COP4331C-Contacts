@@ -428,7 +428,7 @@ function LoadAllContacts()
                 document.getElementById("SearchList").innerHTML = "";
                 
                 // Load all contacts
-                jsonObject.results.forEach(contact => {
+                jsonObject.results.forEach((contact, index) => {
                     const FoundCont = {
                         userId: currentUserId,
                         contactId: contact.id,
@@ -438,6 +438,12 @@ function LoadAllContacts()
                         phone: contact.phone
                     };
                     CreateContact(FoundCont, contact.id);
+                    
+                    // Make the contact visible (it's created as hidden by default)
+                    let ContactFound = document.getElementById(contact.id);
+                    if (ContactFound) {
+                        ContactFound.style.visibility = "visible";
+                    }
                 });
             }
         };
