@@ -295,10 +295,10 @@ body {
 }
 
 .EDIT::before {
-    content: '✏️';
-    font-size: 18px;
+    content: "\270F\FE0F"; /* ✏️ */
+    font-size: 1.2em;
     font-weight: bold;
-    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Android Emoji', 'EmojiSymbols', sans-serif;
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Twemoji Mozilla', sans-serif;
     line-height: 1;
 }
 
@@ -312,10 +312,10 @@ body {
 }
 
 .DELETE::before {
-    content: '🗑️';
-    font-size: 18px;
+    content: "\1F5D1\FE0F"; /* 🗑️ */
+    font-size: 1.2em;
     font-weight: bold;
-    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Android Emoji', 'EmojiSymbols', sans-serif;
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Twemoji Mozilla', sans-serif;
     line-height: 1;
 }
 
