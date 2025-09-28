@@ -6,16 +6,16 @@ error_reporting(0);
 
 $inData = getRequestInfo();
 
-// If no input data received, return error for userId
-if (empty($inData) || !isset($inData["userId"]) || $inData["userId"] <= 0) {
-    returnWithError("Valid userId is required");
+
+if (!isset($inData["userId"])) {
+    returnWithError("userId is required");
     exit();
 }
 
+$searchTerm = isset($inData["search"]) ? trim($inData["search"]) : "";
 
-if (!isset($inData["search"])) {
-    $inData["search"] = "";
-}
+
+$isEmptySearch = ($searchTerm === "");
 
 $searchResults = "";
 $searchCount = 0;
@@ -27,24 +27,18 @@ if ($conn->connect_error) {
 }
 
 
-$searchTerm = trim($inData["search"]);
-if (empty($searchTerm) || $searchTerm === "") {
-   
+if ($isEmptySearch) {
+    // Return all contacts for this user
     $stmt = $conn->prepare("SELECT Id, first_name, last_name, email, phone FROM Contacts WHERE userId=?");
-    if (!$stmt) {
-        returnWithError($conn->error);
-        exit();
-    }
     $stmt->bind_param("i", $inData["userId"]);
 } else {
-    
-    $stmt = $conn->prepare("SELECT Id, first_name, last_name, email, phone FROM Contacts WHERE userId=? AND (first_name LIKE ? OR last_name LIKE ?)");
-    if (!$stmt) {
-        returnWithError($conn->error);
-        exit();
-    }
-    $searchTerm = "%" . $searchTerm . "%";
-    $stmt->bind_param("iss", $inData["userId"], $searchTerm, $searchTerm);
+    $stmt = $conn->prepare(
+        "SELECT Id, first_name, last_name, email, phone
+         FROM Contacts
+         WHERE userId=? AND (first_name LIKE ? OR last_name LIKE ?)"
+    );
+    $like = "%".$searchTerm."%";
+    $stmt->bind_param("iss", $inData["userId"], $like, $like);
 }
 
 if (!$stmt->execute()) {
@@ -77,12 +71,17 @@ $conn->close();
 
 function getRequestInfo()
 {
+    // Try JSON body first
     $inputData = file_get_contents('php://input');
     if ($inputData) {
-        return json_decode($inputData, true);
-    } else {
-        return array();
+        $data = json_decode($inputData, true);
+        if (is_array($data)) return $data;
     }
+    // Fallback to query params (GET) if no JSON body
+    if (!empty($_GET)) return $_GET;
+
+    // Default empty array so we can set defaults downstream
+    return [];
 }
 
 function sendResultInfoAsJson($obj)
