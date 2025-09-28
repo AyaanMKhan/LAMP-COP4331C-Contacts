@@ -9,9 +9,13 @@ let fName = '';
 let lName = '';
 
 //Warning img for errors
-let warningImg = document.createElement('img');
-warningImg.src = 'css/warning-sign-30915_1280.png';
-warningImg.id = 'warningImg';
+/*function createWarningImg()
+{
+    let warningImg = document.createElement('img');
+    warningImg.src = 'css/warning-sign-30915_1280.png';
+    warningImg.id = 'warningImg';
+    return warningImg;
+}*/
 
 //Sets stored values to nothing
 function refreshValues()
@@ -102,19 +106,18 @@ function setInvalid(id)
 
 function emptyCheck(id)
 {
+    let emptWarn = document.getElementById("emptyField");
+
     if (id.value == undefined || id.value == "")
     {
         setInvalid(id);
         id.dataset.valid = "0";
-        document.getElementById("emptyField").innerHTML = "Do not leave any fields empty.";
-        document.getElementById("emptyField").appendChild(warningImg);
-        return false;
+        emptWarn.style.visibility = "visible";
     }
     else 
     {
         id.style.background = "rgba(150, 240, 146, 1)";
         id.dataset.valid = "1";
-        return true;
     }
 }
 
@@ -123,25 +126,26 @@ function clearError()
     if(document.getElementById("firstName").dataset.valid == "1" && document.getElementById("lastName").dataset.valid == "1"
     && document.getElementById("regPassword").dataset.valid == "1")
     {
-        document.getElementById("emptyField").innerHTML = "";
-        document.getElementById("regErr").innerHTML = "";
+        document.getElementById("emptyField").style.visibility = "hidden";
     }
 }
 
 function emailCheck(email)
 {
     let login = email.value;
+    let emailErr =  document.getElementById("invalidEmail");
 
     if (login.match(emailRegEx) == login)
     {
         email.style.background = "rgba(150, 240, 146, 1)";
-        document.getElementById("invalidEmail").innerHTML = "";
+        emailErr.style.visibility = "hidden";
         return true;
     }
 
     setInvalid(email);
-    document.getElementById("invalidEmail").innerHTML = "The email you entered is invalid. Please enter a valid email.";
-    document.getElementById("invalidEmail").appendChild(warningImg);
+    emailErr.style.visibility = "visible";
+    emailErr.appendChild(createWarningImg());
+
     return false;
 }
 
@@ -153,10 +157,20 @@ function register()
     let login = document.getElementById("regEmail").value;
     let password = document.getElementById("regPassword").value;
 
+    let finalCheck = [document.getElementById("firstName"), document.getElementById("lastName"),
+        document.getElementById("regPassword")]
+
     //let hash = md5(password);
     document.getElementById("regErr").innerHTML = "";
 
-    if(document.getElementById("invalidEmail").innerHTML != "" || document.getElementById("emptyField").innerHTML != "")
+    for (i = 0; i < 3; i++)
+    {
+        emptyCheck(finalCheck[i]);
+    }
+
+    emailCheck(document.getElementById("regEmail"));
+
+    if(document.getElementById("invalidEmail").style.visibility == "visible" || document.getElementById("emptyField").style.visibility == "visible")
     {
         return;
     }
