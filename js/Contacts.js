@@ -38,13 +38,22 @@ function readCookie()
 		else if (k === "userId") userId = Number(v);
 	}
 	
+	console.log("Cookie values - fName:", fName, "lName:", lName, "userId:", userId);
+	
 	if (!Number.isInteger(userId) || userId <= 0) {
 		window.location.href = "index.html";
 		return;
 	}
 
 	// Safe: these are declared globals
-	document.getElementById("fullName").textContent = `${fName} ${lName}`;
+	const fullNameElement = document.getElementById("fullName");
+	if (fullNameElement) {
+		if (fName && lName) {
+			fullNameElement.textContent = `${fName} ${lName}`;
+		} else {
+			fullNameElement.textContent = "User"; // Fallback if names are missing
+		}
+	}
 	LoadAllContacts();
 }
 
