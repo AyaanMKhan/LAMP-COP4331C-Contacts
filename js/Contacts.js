@@ -43,15 +43,6 @@ function readCookie()
 		return;
 	}
 
-	// Safe: these are declared globals
-	const fullNameElement = document.getElementById("fullName");
-	if (fullNameElement) {
-		if (fName && lName) {
-			fullNameElement.textContent = `${fName} ${lName}`;
-		} else {
-			fullNameElement.textContent = "User"; // Fallback if names are missing
-		}
-	}
 	LoadAllContacts();
 }
 
