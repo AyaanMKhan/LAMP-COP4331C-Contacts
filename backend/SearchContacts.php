@@ -6,15 +6,6 @@ error_reporting(0);
 
 $inData = getRequestInfo();
 
-// TEMP DEBUG - remove after fixing
-file_put_contents('/tmp/contact_debug.log', print_r([
-  'method'=>$_SERVER['REQUEST_METHOD'],
-  'content_type'=>$_SERVER['CONTENT_TYPE'] ?? '',
-  'GET'=>$_GET, 'POST'=>$_POST,
-  'raw'=>file_get_contents('php://input'),
-  'parsed'=>$inData
-], true)."\n", FILE_APPEND);
-
 if (!isset($inData["userId"])) {
     returnWithError("userId is required");
     exit();

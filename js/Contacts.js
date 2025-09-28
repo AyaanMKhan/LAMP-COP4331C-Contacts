@@ -25,6 +25,7 @@ function readCookie()
 {
 	userId = -1;
 	let data = document.cookie;
+	console.log("Raw cookie data:", data);
 	let splits = data.split(";");
 
 	for(var i = 0; i < splits.length; i++) 
@@ -48,8 +49,11 @@ function readCookie()
 		}
 	}
 	
+	console.log("Parsed userId from cookie:", userId);
+	
 	if( userId < 0 )
 	{
+		console.log("userId is negative, redirecting to login");
 		window.location.href = "index.html";
 	}
 
@@ -418,7 +422,7 @@ function LoadAllContacts()
 
     let jsonPayload = JSON.stringify(SearchData);
     console.log("Sending data:", jsonPayload);
-    console.log("userId:", userId);
+    console.log("userId in JS before fetch:", userId);
     
     let url = urlBase + '/SearchContacts.php';
     let xhr = new XMLHttpRequest();
