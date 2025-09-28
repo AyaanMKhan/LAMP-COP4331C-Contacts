@@ -160,7 +160,7 @@ background-image: linear-gradient(to bottom right, rgb(253, 233, 196) 0%, rgb(18
     border-radius: 20px;
     border-width: 5px;
     cursor: pointer;
-    color: white;
+    color: black;
     background-color: rgb(239, 132, 10);
     border-color: rgb(52, 100, 109);
     font-weight: bold;
@@ -177,7 +177,7 @@ background-image: linear-gradient(to bottom right, rgb(253, 233, 196) 0%, rgb(18
     border-radius: 20px;
     border-width: 5px;
     cursor: pointer;
-    color: white;
+    color: black;
     background-color: rgb(239, 132, 10);
     border-color: rgb(52, 100, 109);
     font-weight: bold;
@@ -200,7 +200,7 @@ background-image: linear-gradient(to bottom right, rgb(253, 233, 196) 0%, rgb(18
     padding: 12px 24px;
     border-radius: 20px;
     cursor: pointer;
-    color: white;
+    color: black;
     font-weight: bold;
     font-size: 12pt;
     background-color: rgb(239, 132, 10);
@@ -287,6 +287,7 @@ background-image: linear-gradient(to bottom right, rgb(253, 233, 196) 0%, rgb(18
 {
     background-color: rgb(160, 90, 11);
     border: 5px outset rgb(236, 221, 0);
+    color: white;
 }
 
 .EDIT:hover, .DELETE:hover, #SearchCon:hover
@@ -294,11 +295,26 @@ background-image: linear-gradient(to bottom right, rgb(253, 233, 196) 0%, rgb(18
     border: 5px outset rgb(236, 221, 0);
 }
 
+#divAttr
+{
+    position: relative;
+    padding: 10px;
+    background-color: rgb(6, 158, 145);
+    z-index: 4;
+    border-style: groove;
+    border-width: 6px;
+    border-color: rgb(0, 66, 59);
+    border-radius: 10px;
+    margin-left: 5%;
+    display: inline-block;
+}
+
 #attribution
 {
     font-family: Arial, sans-serif;
     font-size: 10pt;
     margin-left: 5%;
+    color: white;
 }
 
  #attrLink:hover
