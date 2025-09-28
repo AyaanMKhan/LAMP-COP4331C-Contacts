@@ -196,6 +196,7 @@ function register()
 
                 userId = jsonObject.id;
                 fName = jsonObject.firstName;
+                lName = jsonObject.lastName;
                 cookieSave();
                 window.location.href = contactFile;
             }

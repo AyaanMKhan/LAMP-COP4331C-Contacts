@@ -38,8 +38,6 @@ function readCookie()
 		else if (k === "userId") userId = Number(v);
 	}
 	
-	console.log("Cookie values - fName:", fName, "lName:", lName, "userId:", userId);
-	
 	if (!Number.isInteger(userId) || userId <= 0) {
 		window.location.href = "index.html";
 		return;
