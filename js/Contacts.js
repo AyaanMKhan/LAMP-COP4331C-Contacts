@@ -1,6 +1,5 @@
 //Created by Hiroki Yoshida, edited by Jean Deguzman
-//<a target="_blank" href="https://icons8.com/icon/114093/edit">Edit</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
-//<a target="_blank" href="https://icons8.com/icon/67884/delete">Delete</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
 const urlBase = 'https://contacts-fall-25-cop.xyz/backend'; 
 const contactFile = "contacts.html";
 
@@ -85,18 +84,18 @@ function logout()
 //Made edit to create overlay effect instead of a visibility toggle - Jean
 function CreateContactPop()
 {
-    // Clear all error messages when opening popup
+    
     document.getElementById("createEmptyField").style.display = "none";
     document.getElementById("createInvalidEmail").style.display = "none";
     document.getElementById("createServerError").style.display = "none";
     
-    // Clear field validation styling
+   
     setValid(document.getElementById("PopNameF"));
     setValid(document.getElementById("PopNameL"));
     setValid(document.getElementById("PopEmail"));
     setValid(document.getElementById("PopPhone"));
     
-    // Make sure popup is properly shown
+  
     document.getElementById("ContactPopupMake").style.display = "flex";
     document.getElementById("ContactPopupMake").style.visibility = "visible";
     document.getElementById("overlayBG").style.display = "block";
@@ -105,12 +104,12 @@ function CreateContactPop()
 
 function EditContactPop()
 {
-    // Clear all error messages when opening popup
+    
     document.getElementById("editEmptyField").style.display = "none";
     document.getElementById("editInvalidEmail").style.display = "none";
     document.getElementById("editServerError").style.display = "none";
     
-    // Clear field validation styling
+    
     setValid(document.getElementById("EPopNameF"));
     setValid(document.getElementById("EPopNameL"));
     setValid(document.getElementById("EPopEmail"));
@@ -153,22 +152,22 @@ function exitEditContactPop()
 
 function SubmitContact()
 {
-    // Clear all error messages at the start
+   
     document.getElementById("createEmptyField").style.display = "none";
     document.getElementById("createInvalidEmail").style.display = "none";
     document.getElementById("createServerError").style.display = "none";
 
-    // Get form fields
+   
     let firstNameField = document.getElementById("PopNameF");
     let lastNameField = document.getElementById("PopNameL");
     let emailField = document.getElementById("PopEmail");
     let phoneField = document.getElementById("PopPhone");
 
-    // Validate required fields
+  
     let isValid = true;
     let hasEmptyFields = false;
 
-    // Check for empty fields
+    
     if (!validateEmptyCheck(firstNameField)) {
         setInvalid(firstNameField);
         hasEmptyFields = true;
@@ -188,7 +187,7 @@ function SubmitContact()
         hasEmptyFields = true;
     } else {
         setValid(emailField);
-        // Check email format if not empty
+        
         if (!validateEmailCheck(emailField)) {
             setInvalid(emailField);
             document.getElementById("createInvalidEmail").style.display = "block";
@@ -260,7 +259,7 @@ try
 
     catch(err)
     {
-        // Silent error handling
+       
     }
 
     exitContactPop();
@@ -358,7 +357,7 @@ try
                     return;
                 } 
 
-                // Refresh page to ensure clean state
+                // Refresh page 
                 window.location.reload();
         
             }
@@ -369,7 +368,7 @@ try
 
     catch(err)
     {
-        // Silent error handling
+        
     }
 }
 
@@ -671,7 +670,7 @@ function LoadAllContacts()
         };
         xhr.send(jsonPayload);
     } catch(err) {
-        // Silent error handling
+      
     }
 }
 

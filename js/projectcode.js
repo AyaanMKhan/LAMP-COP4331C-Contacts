@@ -1,4 +1,4 @@
-//Change this as necessary to reflect new domain/file layout...
+
 const urlBase = 'https://contacts-fall-25-cop.xyz/backend'; 
 const contactFile = "contacts.html";
 
